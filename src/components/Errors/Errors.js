@@ -1,4 +1,5 @@
 import React from 'react';
+import './Errors.css'
 
 const Errors = (props) => {
   return (

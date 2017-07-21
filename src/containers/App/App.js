@@ -1,9 +1,9 @@
 import React from 'react';
-import Errors from './Errors'
-import ZipCode from './ZipCode'
-import SelectCover from './SelectCover'
-import AgeInput from './AgeInput'
-import Income from './Income'
+import Errors from '../../components/Errors/Errors'
+import ZipCode from '../../components/ZipCode/ZipCode'
+import SelectCover from '../../components/SelectCover/SelectCover'
+import AgeInput from '../../components/AgeInput/AgeInput'
+import Income from '../../components/Income/Income'
 
 import './App.css';
 
@@ -11,7 +11,10 @@ class App extends React.Component {
   constructor() {
     super(),
     this.state = {
-      zipCode: '',
+      zipCode: {
+        value: '',
+        error: true
+      },
       coverInput: 0,
       kidsInput: 0
     }
@@ -33,17 +36,21 @@ class App extends React.Component {
     })
   }
 
-  zipCodeChange(value) {
+  zipCodeChange(value, hasError) {
     this.setState({
-      zipCode: value
+      zipCode: {
+        value: value,
+        error: hasError
+      }
     })
   }
 
   render() {
     return (
       <div>
-        <ZipCode zipCodeChange={this.zipCodeChange} />
-        <SelectCover coverSelectChange={this.coverSelectChange} />
+        <ZipCode zipCode={this.state.zipCode} zipCodeChange={this.zipCodeChange} />
+        {(!this.state.zipCode.error) &&
+          <SelectCover coverSelectChange={this.coverSelectChange} />}
         {
           (this.state.coverInput > 0) &&
             <AgeInput
@@ -52,7 +59,7 @@ class App extends React.Component {
               kidsSelectChange={this.kidsSelectChange}
             />
         }
-        <Income />
+         <Income />
       </div>
     )
   }

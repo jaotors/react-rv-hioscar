@@ -1,5 +1,6 @@
 import React from 'react'
-import Errors from './Errors'
+import Input from '../Input/Input'
+import Errors from '../Errors/Errors'
 
 class ZipCode extends React.Component {
   constructor() {
@@ -17,43 +18,43 @@ class ZipCode extends React.Component {
   }
 
   handleChange(e) {
-    if(this.state.zipcodes.some(zip => zip !== e.target.value)) {
+    let errors = this.state.errors
+    let hasError = this.props.zipCode.error
+
+    const zipMatch = this.state.zipcodes.some(zip => zip == e.target.value)
+    if(zipMatch) {
+      errors = errors.filter(err => err !== this.state.errCodes[0])
+    } else {
       const error = this.state.errors.some(err => err === this.state.errCodes[0])
       if(!error) {
-        this.setState({
-          errors: this.state.errors.concat(this.state.errCodes[0])
-        })
-      } else {
-        this.setState({
-          errors: this.state.errors.filter(err => {
-            return err != this.state.errCodes[1]
-          })
-        })
+        errors = errors.concat(this.state.errCodes[0])
       }
     }
 
-    if(e.target.value < 4) {
+    if(e.target.value.length === 4) {
+      errors = errors.filter(err => err !== this.state.errCodes[1])
+    } else {
       const error = this.state.errors.some(err => err === this.state.errCodes[1])
       if(!error) {
-        this.setState({
-          errors: this.state.errors.concat(this.state.errCodes[1])
-        })
-      } else {
-        this.setState({
-          errors: this.state.errors.filter(err => {
-            return err != this.state.errCodes[1]
-          })
-        })
+        errors = errors.concat(this.state.errCodes[1])
       }
     }
 
-    this.props.zipCodeChange(e.target.value)
+    if(errors.length < 1) {
+      hasError = false
+    }
+
+    this.props.zipCodeChange(e.target.value, hasError)
+    this.setState({
+      errors: errors
+    })
+
   }
 
   render() {
     return (
       <div>
-        <p>My zipcode is <input type="number" min="0" max="9999" onChange={this.handleChange} /></p>
+        <p>My zipcode is <Input id="zipcode" handleChange={this.handleChange} /></p>
         <Errors errors={this.state.errors} />
       </div>
     )
