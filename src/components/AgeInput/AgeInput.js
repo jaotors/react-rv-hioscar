@@ -33,6 +33,25 @@ class AgeInput extends React.Component {
     })
   }
 
+  componentDidMount() {
+    let errors = []
+    if(!errors.some(err => err === this.state.errCodes[0])) errors = errors.concat(this.state.errCodes[0])
+
+    if(this.props.coverSelect < 4) {
+      if(!errors.some(err => err === this.state.errCodes[2])) errors = errors.concat(this.state.errCodes[2])
+    }
+
+    if(this.props.coverSelect == 3 || this.props.coverSelect == 4) {
+      if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
+    }
+
+    console.log(errors)
+
+    this.setState({
+      errors: errors
+    })
+  }
+
   handleChange(e) {
     let errors = this.state.errors
     const {id, value} = e.target
@@ -77,6 +96,10 @@ class AgeInput extends React.Component {
       if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
     } else {
       errors = errors.filter(err => err !== this.state.errCodes[4])
+    }
+
+    if(errors.length < 1) {
+      this.props.changeAgeError(false)
     }
 
     this.setState({
