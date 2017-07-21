@@ -15,13 +15,16 @@ class App extends React.Component {
         value: '',
         error: true
       },
+      ageInputError: true,
       coverInput: 0,
-      kidsInput: 0
+      kidsInput: 0,
+      errors: true
     }
 
     this.kidsSelectChange = this.kidsSelectChange.bind(this)
     this.coverSelectChange = this.coverSelectChange.bind(this)
     this.zipCodeChange = this.zipCodeChange.bind(this)
+    this.changeAgeError = this.changeAgeError.bind(this)
   }
 
   kidsSelectChange(e) {
@@ -45,6 +48,12 @@ class App extends React.Component {
     })
   }
 
+  changeAgeError(value) {
+    this.setState({
+      ageInputError: value
+    })
+  }
+
   render() {
     return (
       <div>
@@ -57,9 +66,11 @@ class App extends React.Component {
               coverSelect={this.state.coverInput}
               kidsSelect={this.state.kidsInput}
               kidsSelectChange={this.kidsSelectChange}
+              changeAgeError={this.changeAgeError}
             />
         }
-         <Income />
+        {(!this.state.ageInputError) &&
+          <Income />}
       </div>
     )
   }

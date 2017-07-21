@@ -18,8 +18,9 @@ class ZipCode extends React.Component {
   }
 
   handleChange(e) {
+    const {zipCode, zipCodeChange} = this.props
     let errors = this.state.errors
-    let hasError = this.props.zipCode.error
+    let hasError = zipCode.error
 
     const zipMatch = this.state.zipcodes.some(zip => zip == e.target.value)
     if(zipMatch) {
@@ -44,7 +45,7 @@ class ZipCode extends React.Component {
       hasError = false
     }
 
-    this.props.zipCodeChange(e.target.value, hasError)
+    zipCodeChange(e.target.value, hasError)
     this.setState({
       errors: errors
     })

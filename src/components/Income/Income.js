@@ -1,4 +1,5 @@
 import React from 'react'
+import Input from '../Input/Input'
 
 class Income extends React.Component {
   render() {
@@ -12,7 +13,7 @@ class Income extends React.Component {
     return (
       <div>
         <p>I make P 
-          <input type="text" /> yearly with 
+          <Input id="income" handleChange={this.props.handleChange} /> yearly with 
           <select defaultValue="0">
             {
               count.map(c => {
