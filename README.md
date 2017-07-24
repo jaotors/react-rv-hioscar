@@ -4,6 +4,7 @@
   - check list component
   - thank you component
   - done component
+  - add styles. do a MAGIC!! TADA!!
 
 ## React Starter
 ## Quick start
