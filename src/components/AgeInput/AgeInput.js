@@ -11,7 +11,7 @@ class AgeInput extends React.Component {
     this.state = {
       errors: [],
       errCodes: [
-        `Your age 2s required`,
+        `Your age is required`,
         `Hey youngster, you have to be 18 or older to sign up with Oscar`,
         `Your spouse's age is requried`,
         `Your spouse needs to be at least 18 years old`,
