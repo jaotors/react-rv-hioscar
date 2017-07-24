@@ -9,11 +9,3 @@ html {
 body {
   font-family: sans-serif;
 }
-
-input, select {
-  margin: 0 5px;
-}
-
-input {
-  width: 75px;
-}

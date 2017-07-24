@@ -4,6 +4,7 @@ import ZipCode from '../../components/ZipCode/ZipCode'
 import SelectCover from '../../components/SelectCover/SelectCover'
 import AgeInput from '../../components/AgeInput/AgeInput'
 import Income from '../../components/Income/Income'
+import Button from '../../components/Button/Button'
 
 import './App.css';
 
@@ -18,6 +19,8 @@ class App extends React.Component {
       ageInputError: true,
       coverInput: 0,
       kidsInput: 0,
+      selectIncomePass: false,
+      incomePass: false,
       errors: true
     }
 
@@ -25,17 +28,19 @@ class App extends React.Component {
     this.coverSelectChange = this.coverSelectChange.bind(this)
     this.zipCodeChange = this.zipCodeChange.bind(this)
     this.changeAgeError = this.changeAgeError.bind(this)
+    this.incomePassChange = this.incomePassChange.bind(this)
+    this.selectIncomePassChange = this.selectIncomePassChange.bind(this)
   }
 
-  kidsSelectChange(e) {
+  kidsSelectChange(value) {
     this.setState({
-      kidsInput: e.target.value
+      kidsInput: value
     })
   }
 
-  coverSelectChange(e) {
+  coverSelectChange(value) {
     this.setState({
-      coverInput: e.target.value
+      coverInput: value
     })
   }
 
@@ -51,6 +56,18 @@ class App extends React.Component {
   changeAgeError(value) {
     this.setState({
       ageInputError: value
+    })
+  }
+
+  selectIncomePassChange(value) {
+    this.setState({
+      selectIncomePass: value
+    })
+  }
+
+  incomePassChange(value) {
+    this.setState({
+      incomePass: value
     })
   }
 
@@ -70,7 +87,10 @@ class App extends React.Component {
             />
         }
         {(!this.state.ageInputError) &&
-          <Income />}
+          <Income incomePassChange={this.incomePassChange} selectIncomePassChange={this.selectIncomePassChange} />}
+
+        {(this.state.selectIncomePass && this.state.incomePass && 
+          <Button text="Next" />)}
       </div>
     )
   }

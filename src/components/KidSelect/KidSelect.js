@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class KidSelect extends React.Component {
   constructor() {
@@ -7,8 +8,9 @@ class KidSelect extends React.Component {
   }
 
   handleChange(e) {
-    this.props.kidsSelectChange(e)
-    this.props.arrayChange(e.target.value)
+    const value = parseInt(e.target.value)
+    this.props.kidsSelectChange(value)
+    this.props.arrayChange(value)
   }
 
   render() {
@@ -27,6 +29,11 @@ class KidSelect extends React.Component {
       </select>
     )
   }
+}
+
+KidSelect.propTypes = {
+  kidsSelectChange: PropTypes.func,
+  arrayChange: PropTypes.func,
 }
 
 export default KidSelect

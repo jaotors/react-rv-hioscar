@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
 
@@ -41,9 +42,7 @@ class ZipCode extends React.Component {
       }
     }
 
-    if(errors.length < 1) {
-      hasError = false
-    }
+    if(errors.length < 1) hasError = false
 
     zipCodeChange(e.target.value, hasError)
     this.setState({
@@ -55,11 +54,16 @@ class ZipCode extends React.Component {
   render() {
     return (
       <div>
-        <p>My zipcode is <Input id="zipcode" handleChange={this.handleChange} /></p>
+        <p>My zipcode is <Input id="zipcode" type="number" handleChange={this.handleChange} /></p>
         <Errors errors={this.state.errors} />
       </div>
     )
   }
+}
+
+ZipCode.propTypes = {
+  zipCode: PropTypes.object,
+  zipCodeChange: PropTypes.func
 }
 
 export default ZipCode

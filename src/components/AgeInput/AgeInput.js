@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import SpouseAge from '../SpouseAge/SpouseAge'
 import KidsAge from '../KidsAge/KidsAge'
@@ -10,7 +11,7 @@ class AgeInput extends React.Component {
     this.state = {
       errors: [],
       errCodes: [
-        `Your age is required`,
+        `Your age 2s required`,
         `Hey youngster, you have to be 18 or older to sign up with Oscar`,
         `Your spouse's age is requried`,
         `Your spouse needs to be at least 18 years old`,
@@ -33,11 +34,11 @@ class AgeInput extends React.Component {
     })
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let errors = []
     if(!errors.some(err => err === this.state.errCodes[0])) errors = errors.concat(this.state.errCodes[0])
 
-    if(this.props.coverSelect < 4) {
+    if(this.props.coverSelect < 4 && this.props.coverSelect > 1) {
       if(!errors.some(err => err === this.state.errCodes[2])) errors = errors.concat(this.state.errCodes[2])
     }
 
@@ -45,11 +46,28 @@ class AgeInput extends React.Component {
       if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
     }
 
-    console.log(errors)
-
     this.setState({
       errors: errors
     })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.coverSelect !== this.props.coverSelect) {
+      let errors = []
+      if(!errors.some(err => err === this.state.errCodes[0])) errors = errors.concat(this.state.errCodes[0])
+
+      if(this.props.coverSelect < 4 && this.props.coverSelect > 1) {
+        if(!errors.some(err => err === this.state.errCodes[2])) errors = errors.concat(this.state.errCodes[2])
+      }
+
+      if(this.props.coverSelect === 3 || this.props.coverSelect === 4) {
+        if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
+      }
+
+      this.setState({
+        errors: errors
+      })
+    }
   }
 
   handleChange(e) {
@@ -132,14 +150,14 @@ class AgeInput extends React.Component {
     return (
       <div>
         <p>
-          I'm <Input id="myAge" handleChange={this.handleChange} /> years old 
+          I'm <Input id="myAge" type="number" handleChange={this.handleChange} /> years old 
           {(coverSelect != 2 && coverSelect != 3) ? '' : 
             <SpouseAge coverSelect={coverSelect} handleChange={this.handleChange} />}
           {(coverSelect != 3 && coverSelect != 4) ? '' : 
             <KidsAge 
               coverSelect={coverSelect}
-              kidsSelectChange={kidsSelectChange}
               kidsSelect={kidsSelect}
+              kidsSelectChange={kidsSelectChange}
               kidsInput={kidsInput}
               replaceText={this.replaceText}
               handleChange={this.handleChange}
@@ -149,6 +167,13 @@ class AgeInput extends React.Component {
       </div>
     )
   }
+}
+
+AgeInput.propTypes = {
+  coverSelect: PropTypes.number,
+  kidsSelect: PropTypes.number,
+  kidsSelectChange: PropTypes.func,
+  changeAgeError: PropTypes.func,
 }
 
 export default AgeInput

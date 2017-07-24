@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import './Errors.css'
 
 const Errors = (props) => {
@@ -13,6 +14,10 @@ const Errors = (props) => {
       </ul>
     </div>
   )
+}
+
+Errors.propTypes = {
+  errors: PropTypes.array
 }
 
 export default Errors
