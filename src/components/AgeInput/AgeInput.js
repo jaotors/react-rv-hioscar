@@ -42,7 +42,7 @@ class AgeInput extends React.Component {
       if(!errors.some(err => err === this.state.errCodes[2])) errors = errors.concat(this.state.errCodes[2])
     }
 
-    if(this.props.coverSelect == 3 || this.props.coverSelect == 4) {
+    if(this.props.coverSelect === 3 || this.props.coverSelect === 4) {
       if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
     }
 
@@ -118,6 +118,8 @@ class AgeInput extends React.Component {
 
     if(errors.length < 1) {
       this.props.changeAgeError(false)
+    } else {
+      this.props.changeAgeError(true)
     }
 
     this.setState({

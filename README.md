@@ -1,4 +1,9 @@
 # Recreate hi-oscar get quote
+### List of need to do
+  - validations of errors hide next button if there are errors
+  - check list component
+  - thank you component
+  - done component
 
 ## React Starter
 ## Quick start
