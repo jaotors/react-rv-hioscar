@@ -1,5 +1,5 @@
 # Recreate hi-oscar get quote
-### List of need to do
+### Lists of need to do
   - validations of errors hide next button if there are errors
   - check list component
   - thank you component
