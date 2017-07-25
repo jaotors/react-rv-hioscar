@@ -1,10 +1,9 @@
 # Recreate hi-oscar get quote
 ### Lists of need to do
-  - validations of errors hide next button if there are errors
   - check list component
   - thank you component
   - done component
-  - add styles. do a MAGIC!! TADA!!
+  - styles 40%
 
 ## React Starter
 ## Quick start

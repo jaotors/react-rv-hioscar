@@ -1,8 +1,12 @@
 .errors {
-  font-size: 10px;
+  font-size: 15px;
   padding: 0;
+  margin: 0 0 10px;
+  
 }
 
 .errors li {
   margin-bottom: 5px;
+  color: #2c1f1f;
+  list-style: none;
 }

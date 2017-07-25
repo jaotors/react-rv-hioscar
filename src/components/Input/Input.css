@@ -4,4 +4,11 @@ input, select {
 
 input {
   width: 75px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: 0;
+  color: #fff;
+  font-size: 24px;
+  text-align: center
 }

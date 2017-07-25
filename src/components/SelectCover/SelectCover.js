@@ -19,14 +19,13 @@ class SelectCover extends React.Component {
   }
 
   handleChange(e) {
-    const value = parseInt(e.target.value)
-    this.props.coverSelectChange(value)
+    this.props.coverSelectChange(e)
   }
 
 
   render() {
     return (
-      <div>
+      <div className="select-cover">
         <p>
           I'd like to cover 
           <select name={this.state.name} id={this.state.id} defaultValue='0' onChange={this.handleChange}>

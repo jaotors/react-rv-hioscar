@@ -8,9 +8,8 @@ class KidSelect extends React.Component {
   }
 
   handleChange(e) {
-    const value = parseInt(e.target.value)
-    this.props.kidsSelectChange(value)
-    this.props.arrayChange(value)
+    this.props.kidsSelectChange(e)
+    this.props.kidsAgeChange(e)
   }
 
   render() {
@@ -33,7 +32,7 @@ class KidSelect extends React.Component {
 
 KidSelect.propTypes = {
   kidsSelectChange: PropTypes.func,
-  arrayChange: PropTypes.func,
+  kidsAgeChange: PropTypes.func,
 }
 
 export default KidSelect

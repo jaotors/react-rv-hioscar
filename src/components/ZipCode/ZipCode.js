@@ -43,8 +43,10 @@ class ZipCode extends React.Component {
     }
 
     if(errors.length < 1) hasError = false
+    const setError = errors.length < 1 ? true : false
+    this.props.setGlobalError(setError)
 
-    zipCodeChange(e.target.value, hasError)
+    zipCodeChange(e, hasError)
     this.setState({
       errors: errors
     })
@@ -53,8 +55,8 @@ class ZipCode extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>My zipcode is <Input id="zipcode" type="number" handleChange={this.handleChange} /></p>
+      <div className="zipcode-container">
+        <p>My zipcode is <Input id="zipcode" handleChange={this.handleChange} /></p>
         <Errors errors={this.state.errors} />
       </div>
     )
@@ -63,7 +65,8 @@ class ZipCode extends React.Component {
 
 ZipCode.propTypes = {
   zipCode: PropTypes.object,
-  zipCodeChange: PropTypes.func
+  zipCodeChange: PropTypes.func,
+  setGlobalError: PropTypes.func
 }
 
 export default ZipCode

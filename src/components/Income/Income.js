@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
+import './Income.css'
 
 class Income extends React.Component {
   constructor() {
@@ -13,21 +14,17 @@ class Income extends React.Component {
       ]
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleKeyPress = this.handleKeyPress.bind(this)
     this.selectChange = this.selectChange.bind(this)
+  }
+
+  componentWillMount() {
+    this.props.selectIncomePassChange(false)
   }
 
   selectChange(e) {
     const value = parseInt(e.target.value)
     if(value !== 0) {
       this.props.selectIncomePassChange(true)
-    }
-  }
-
-  handleKeyPress(e) {
-    const reg = /([^0-9])+/g
-    if(reg.test(e.key)) {
-      e.preventDefault()
     }
   }
 
@@ -43,7 +40,10 @@ class Income extends React.Component {
       this.props.incomePassChange(true)
     }
 
+    const setError = errors.length < 1 ? true : false
+    this.props.setGlobalError(setError)
 
+    this.props.incomeChange(value)
     this.setState({
       errors
     })
@@ -57,9 +57,9 @@ class Income extends React.Component {
     }
 
     return (
-      <div>
+      <div className="income-container">
         <p>I make P 
-          <Input id="income" type="text" handleChange={this.handleChange} handleKeyPress={this.handleKeyPress} /> yearly with 
+          <Input id="income" handleChange={this.handleChange} value={this.props.income} /> yearly with 
           <select defaultValue="0" onChange={this.selectChange}>
             {
               count.map(c => {
@@ -77,7 +77,10 @@ class Income extends React.Component {
 
 Income.propTypes = {
   incomePassChange: PropTypes.func,
-  selectIncomePassChange: PropTypes.func
+  selectIncomePassChange: PropTypes.func,
+  incomeChange: PropTypes.func,
+  income: PropTypes.string,
+  setGlobalError: PropTypes.func
 }
 
 export default Income

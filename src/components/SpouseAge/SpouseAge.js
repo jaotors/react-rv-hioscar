@@ -6,7 +6,7 @@ const SpouseAge = (props) => {
   return (
     <span>
       {(props.coverSelect === 3  ? ', my spouse is' : ' and my spouse is')}
-      <Input id="spouseAge" type="number" handleChange={props.handleChange} />
+      <Input id="spouseAge" handleChange={props.handleChange} />
     </span>
   )
 }
