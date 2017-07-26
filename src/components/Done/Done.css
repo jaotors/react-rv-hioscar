@@ -13,5 +13,9 @@
 
 .done-container p a {
   text-decoration: none;
-  color: #354682;
+  color: #2b427e;
+}
+
+.done-container p a:hover {
+  text-decoration: underline;
 }
