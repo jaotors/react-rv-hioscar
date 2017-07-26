@@ -5,6 +5,8 @@ import SpouseAge from '../SpouseAge/SpouseAge'
 import KidsAge from '../KidsAge/KidsAge'
 import Errors from '../Errors/Errors'
 
+import './AgeInput.css'
+
 class AgeInput extends React.Component {
   constructor() {
     super(),
@@ -17,7 +19,8 @@ class AgeInput extends React.Component {
         `Your spouse needs to be at least 18 years old`,
         `All ages are requried`
       ],
-      kidsAges: []
+      kidsAges: [],
+      visible: false
     }
     this.replaceText = this.replaceText.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -43,6 +46,14 @@ class AgeInput extends React.Component {
     this.setState({
       errors: errors
     })
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        visible: true
+      })
+    }, 500)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -82,10 +93,11 @@ class AgeInput extends React.Component {
 
       const setError = errors.length < 1 ? true : false
       this.props.setValueComponent("globalError",setError)
-
       this.props.setValueComponent("ages",ages)
+
       this.setState({
-        errors: errors
+        errors: errors,
+        kidsAges: (ages.kidsAges === undefined) ? [] : ages.kidsAges
       })
     }
   }
@@ -213,7 +225,7 @@ class AgeInput extends React.Component {
     }
 
     return (
-      <div className="age-container">
+      <div className={(!this.state.visible) ? 'ageContainer' : 'ageContainer active'}>
         <p>
           I'm <Input id="myAge" handleChange={this.handleChange} /> years old 
           {(coverSelect != 2 && coverSelect != 3) ? '' : 

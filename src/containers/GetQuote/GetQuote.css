@@ -11,6 +11,13 @@ body {
   background-color: #2F90C8;
   color: #fff;
   margin: 0;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
 }
 
 p {
@@ -34,6 +41,5 @@ select option {
 
 #root {
   max-width: 800px;
-  margin: 0 auto;
   padding: 20px;
 }

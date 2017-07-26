@@ -1,21 +1,29 @@
-.done-container {
+.doneContainer {
   text-align: center;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: 0.5s;
 }
 
-.done-container p:first-child {
+.doneContainer.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.doneContainer p:first-child {
   font-size: 22px;
   font-weight: bold;
 }
 
-.done-container p:not(:first-child) {
+.doneContainer p:not(:first-child) {
   font-size: 17px;
 }
 
-.done-container p a {
+.doneContainer p a {
   text-decoration: none;
   color: #2b427e;
 }
 
-.done-container p a:hover {
+.doneContainer p a:hover {
   text-decoration: underline;
 }

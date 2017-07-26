@@ -5,7 +5,18 @@ import './Button.css'
 class Button extends React.Component {
   constructor() {
     super(),
+    this.state = {
+      visible: false
+    }
     this.handleClick = this.handleClick.bind(this)
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        visible: true
+      })
+    }, 500)
   }
 
   handleClick() {
@@ -14,7 +25,7 @@ class Button extends React.Component {
 
   render() {
     return(
-      <div className="btn-container">
+      <div className={(!this.state.visible) ? 'btnContainer' : 'btnContainer active'}>
         <button onClick={this.handleClick} >{this.props.text}</button>
       </div>
     )

@@ -33,9 +33,18 @@ class CheckList extends React.Component {
           checkExample: `e.g. medicine you take regularly or as needed`
         },
       ],
-      checkedPlan: [false, false, false, false]
+      checkedPlan: [false, false, false, false],
+      visible: false
     }
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        visible: true
+      })
+    }, 500)
   }
 
   handleChange(e) {
@@ -54,7 +63,7 @@ class CheckList extends React.Component {
 
   render() {
     return(
-      <div className="checklist-container">
+      <div className={(!this.state.visible) ? 'checklistContainer' : 'checklistContainer active'}>
         <h2>Let’s find the right plan for you!</h2>
         <p>Select any that apply. Don’t worry, these won’t affect your premium.</p>
 

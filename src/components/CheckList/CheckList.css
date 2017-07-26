@@ -1,16 +1,27 @@
-.checklist-container h2 {
+.checklistContainer {
+  opacity: 0;
+  transform: translateY(5px);
+  transition: 0.5s;
+}
+
+.checklistContainer.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.checklistContainer h2 {
   margin: 0 0 5px;
 }
 
-.checklist-container p {
+.checklistContainer p {
   font-size: 15px;
 }
 
-.checklist-container ul {
+.checklistContainer ul {
   padding: 0;
   margin: 0 0 10px;
   list-style-type: none;
 }
-.checklist-container ul li:not(:last-child) {
+.checklistContainer ul li:not(:last-child) {
   margin-bottom: 20px;
 }

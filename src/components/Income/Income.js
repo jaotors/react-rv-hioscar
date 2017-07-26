@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
 import Button from '../Button/Button'
-import './Income.css'
+import styles from './Income.css'
 
 class Income extends React.Component {
   constructor() {
@@ -12,7 +12,8 @@ class Income extends React.Component {
       errors: [],
       errCodes: [
         `Valid income value is required to get a quote`
-      ]
+      ],
+      visible: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.selectChange = this.selectChange.bind(this)
@@ -20,6 +21,14 @@ class Income extends React.Component {
 
   componentWillMount() {
     this.props.setValueComponent('selectIncomePass', false)
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        visible: 500
+      })
+    }, 500)
   }
 
   selectChange(e) {
@@ -58,7 +67,7 @@ class Income extends React.Component {
     }
 
     return (
-      <div className="income-container">
+      <div className={(!this.state.visible) ? 'incomeContainer' : 'incomeContainer active'}>
         <p>I make P 
           <Input id="income" handleChange={this.handleChange} value={this.props.income} /> yearly with 
           <select defaultValue="0" onChange={this.selectChange}>

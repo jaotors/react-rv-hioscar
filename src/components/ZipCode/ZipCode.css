@@ -1,15 +1,10 @@
-.incomeContainer {
+.zipcodeContainer {
   opacity: 0;
   transform: translateY(5px);
   transition: 0.5s;
 }
 
-.incomeContainer.active {
+.zipcodeContainer.active {
   opacity: 1;
   transform: translateY(0);
-}
-
-.incomeContainer input {
-  width: 150px;
-  text-align: left
 }

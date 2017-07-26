@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import './SelectCover.css'
 
 class SelectCover extends React.Component {
   constructor() {
@@ -13,7 +14,8 @@ class SelectCover extends React.Component {
         {value: 2, text: 'me and my spouse'},
         {value: 3, text: 'me, my spouse and my kids'},
         {value: 4, text: 'me and my kids'}
-      ]
+      ],
+      visible: false
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -22,10 +24,17 @@ class SelectCover extends React.Component {
     this.props.setValueComponent("coverInput", parseInt(e.target.value))
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        visible: true
+      })
+    }, 500)
+  }
 
   render() {
     return (
-      <div className="select-cover">
+      <div className={(!this.state.visible) ? 'selectCover' : 'selectCover active'}>
         <p>
           I'd like to cover 
           <select name={this.state.name} id={this.state.id} defaultValue='0' onChange={this.handleChange}>

@@ -1,4 +1,15 @@
-.btn-container button {
+.btnContainer {
+  opacity: 0;
+  transform: translateY(5px);
+  transition: 0.5s;
+}
+
+.btnContainer.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btnContainer button {
   display: block;
   font-size: 20px;
   padding: 10px 15px;
@@ -11,11 +22,11 @@
   color: #444;
 }
 
-.btn-container button:hover {
+.btnContainer button:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3)
 }
 
-.btn-container button:focus {
+.btnContainer button:focus {
   outline: 0;
 }

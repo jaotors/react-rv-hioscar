@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
+import './ZipCode.css'
 
 class ZipCode extends React.Component {
   constructor() {
@@ -12,7 +13,8 @@ class ZipCode extends React.Component {
       errCodes: [
         `There is no zipcode like that in makati`,
         `zipcode must be only 4 digits`
-      ]
+      ],
+      visible: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -52,9 +54,17 @@ class ZipCode extends React.Component {
     })
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        visible: true
+      })
+    }, 500)
+  }
+
   render() {
     return (
-      <div className="zipcode-container">
+      <div className={(!this.state.visible) ? 'zipcodeContainer' : 'zipcodeContainer active'}>
         <p>My zipcode is <Input id="zipcode" handleChange={this.handleChange} /></p>
         <Errors errors={this.state.errors} />
       </div>
