@@ -8,7 +8,7 @@ class KidSelect extends React.Component {
   }
 
   handleChange(e) {
-    this.props.kidsSelectChange(e)
+    this.props.setValueComponent("kidsInput", parseInt(e.target.value))
     this.props.kidsAgeChange(e)
   }
 
@@ -31,7 +31,7 @@ class KidSelect extends React.Component {
 }
 
 KidSelect.propTypes = {
-  kidsSelectChange: PropTypes.func,
+  setValueComponent: PropTypes.func,
   kidsAgeChange: PropTypes.func,
 }
 

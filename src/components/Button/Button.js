@@ -2,16 +2,28 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './Button.css'
 
-const Button = (props) => {
-  return(
-    <div className="btn-container">
-      <button>{props.text}</button>
-    </div>
-  )
+class Button extends React.Component {
+  constructor() {
+    super(),
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    this.props.setValueComponent(this.props.keyVal, true)
+  }
+
+  render() {
+    return(
+      <div className="btn-container">
+        <button onClick={this.handleClick} >{this.props.text}</button>
+      </div>
+    )
+  }
 }
 
 Button.propTypes = {
-  text: PropTypes.string
+  text: PropTypes.string,
+  setValueComponent: PropTypes.func
 }
 
 export default Button

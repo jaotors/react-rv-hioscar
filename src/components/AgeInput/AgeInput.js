@@ -39,7 +39,7 @@ class AgeInput extends React.Component {
       if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
     }
 
-    this.props.agesChange(ages)
+    this.props.setValueComponent("ages",ages)
     this.setState({
       errors: errors
     })
@@ -75,15 +75,15 @@ class AgeInput extends React.Component {
 
       if(this.props.coverSelect === 3 || this.props.coverSelect === 4) {
         if(ages.kidsAges === undefined) ages = Object.assign({}, ages, {kidsAges: this.state.kidsAges})
-        if(ages.kidsAges.some(kids => kids === '')) {
+        if(ages.kidsAges.some(kids => kids === '') || ages.kidsAges.length < 1) {
           if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
         }
       }
 
       const setError = errors.length < 1 ? true : false
-      this.props.setGlobalError(setError)
+      this.props.setValueComponent("globalError",setError)
 
-      this.props.agesChange(ages)
+      this.props.setValueComponent("ages",ages)
       this.setState({
         errors: errors
       })
@@ -112,14 +112,14 @@ class AgeInput extends React.Component {
     }
 
     const setError = errors.length < 1 ? true : false
-    this.props.setGlobalError(setError)
+    this.props.setValueComponent("globalError",setError)
 
     ages.kidsAges = kidsAges
     this.setState({
       kidsAges,
       errors
     })
-    this.props.agesChange(ages)
+    this.props.setValueComponent("ages",ages)
   }
 
   handleChange(e) {
@@ -181,14 +181,14 @@ class AgeInput extends React.Component {
 
     const setError = errors.length < 1 ? true : false
 
-    this.props.changeAgeError(!setError)
-    this.props.setGlobalError(setError)
+    this.props.setValueComponent("ageInputError", !setError)
+    this.props.setValueComponent("globalError",setError)
 
     this.setState({
       errors,
       kidsAges: kidsAges
     })
-    this.props.agesChange(ages)
+    this.props.setValueComponent("ages",ages)
   }
 
   replaceText(index, length) {
@@ -203,7 +203,7 @@ class AgeInput extends React.Component {
   }
 
   render() {
-    const {coverSelect, kidsSelectChange, kidsSelect} = this.props
+    const {coverSelect, setValueComponent, kidsSelect} = this.props
     let kidsInput = []
     if(kidsSelect != 0) {
       for(let i = 1; i <= kidsSelect; i++) {
@@ -222,7 +222,7 @@ class AgeInput extends React.Component {
             <KidsAge 
               coverSelect={coverSelect}
               kidsSelect={kidsSelect}
-              kidsSelectChange={kidsSelectChange}
+              setValueComponent={setValueComponent}
               kidsInput={kidsInput}
               replaceText={this.replaceText}
               handleChange={this.handleChange}
@@ -237,11 +237,8 @@ class AgeInput extends React.Component {
 AgeInput.propTypes = {
   coverSelect: PropTypes.number,
   kidsSelect: PropTypes.number,
-  kidsSelectChange: PropTypes.func,
-  changeAgeError: PropTypes.func,
-  agesChange: PropTypes.func,
   ages: PropTypes.object,
-  setGlobalError: PropTypes.func,
+  setValueComponent: PropTypes.func,
 }
 
 export default AgeInput

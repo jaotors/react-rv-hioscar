@@ -19,7 +19,7 @@ class SelectCover extends React.Component {
   }
 
   handleChange(e) {
-    this.props.coverSelectChange(e)
+    this.props.setValueComponent("coverInput", parseInt(e.target.value))
   }
 
 
@@ -42,7 +42,7 @@ class SelectCover extends React.Component {
 }
 
 SelectCover.propTypes = {
-  coverSelectChange: PropTypes.func
+  setValueComponent: PropTypes.func
 }
 
 export default SelectCover

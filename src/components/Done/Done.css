@@ -1,0 +1,17 @@
+.done-container {
+  text-align: center;
+}
+
+.done-container p:first-child {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.done-container p:not(:first-child) {
+  font-size: 17px;
+}
+
+.done-container p a {
+  text-decoration: none;
+  color: #354682;
+}

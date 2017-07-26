@@ -1,0 +1,30 @@
+.waiting-container h2 {
+  font-size: 28px;
+  margin: 0 0 30px;
+  text-align: center;
+}
+
+.waiting-container p {
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.waiting-container .loader {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  text-align: center;
+  border: 7px solid rgba(255, 255, 255, 0.4);
+  border-top: 7px solid #fff;
+  border-radius: 50%;
+  transition: 0.7s;
+  animation: loading 1s infinite ;
+}
+
+@keyframes loading {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}

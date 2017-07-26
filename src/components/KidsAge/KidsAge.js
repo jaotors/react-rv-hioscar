@@ -8,7 +8,7 @@ class KidsAge extends React.Component {
   render() {
     const {
       coverSelect,
-      kidsSelectChange,
+      setValueComponent,
       kidsSelect,
       kidsInput,
       handleChange,
@@ -19,7 +19,7 @@ class KidsAge extends React.Component {
     return (
       <span>
         {(coverSelect != 3 && coverSelect != 4) ? '' : ' and my '}
-        <KidSelect kidsSelectChange={kidsSelectChange} kidsAgeChange={kidsAgeChange} />
+        <KidSelect setValueComponent={setValueComponent} kidsAgeChange={kidsAgeChange} />
         {(kidsSelect < 2 ? 'kid is' : 'kids are')}
         {
           (kidsSelect < 1 ) ? '' : (
@@ -36,8 +36,8 @@ class KidsAge extends React.Component {
 KidsAge.propTypes = {
   coverSelect: PropTypes.number,
   kidsSelect: PropTypes.number,
-  kidsSelectChange: PropTypes.func,
   kidsInput: PropTypes.array,
+  setValueComponent: PropTypes.func,
   replaceText: PropTypes.func,
   handleChange: PropTypes.func,
   kidsAgeChange: PropTypes.func,

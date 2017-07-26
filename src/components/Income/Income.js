@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
+import Button from '../Button/Button'
 import './Income.css'
 
 class Income extends React.Component {
@@ -18,13 +19,13 @@ class Income extends React.Component {
   }
 
   componentWillMount() {
-    this.props.selectIncomePassChange(false)
+    this.props.setValueComponent('selectIncomePass', false)
   }
 
   selectChange(e) {
     const value = parseInt(e.target.value)
     if(value !== 0) {
-      this.props.selectIncomePassChange(true)
+      this.props.setValueComponent('selectIncomePass', true)
     }
   }
 
@@ -34,16 +35,16 @@ class Income extends React.Component {
 
     if(value.length > 8 || value === '') {
       if(!errors.some(err => err === this.state.errCodes[0])) errors = errors.concat(this.state.errCodes[0])
-      this.props.incomePassChange(false)
+      this.props.setValueComponent("incomePass",false)
     } else {
       errors = errors.filter(err => err !== this.state.errCodes[0])
-      this.props.incomePassChange(true)
+      this.props.setValueComponent("incomePass",true)
     }
 
     const setError = errors.length < 1 ? true : false
-    this.props.setGlobalError(setError)
+    this.props.setValueComponent("globalError",setError)
 
-    this.props.incomeChange(value)
+    this.props.setValueComponent("income",value)
     this.setState({
       errors
     })
@@ -70,17 +71,20 @@ class Income extends React.Component {
           people in my tax household.
         </p>
         <Errors errors={this.state.errors}/>
+        {(this.props.selectIncomePass && this.props.incomePass && this.props.globalError && (!this.props.checkComponent) &&
+          <Button setValueComponent={this.props.setValueComponent} keyVal="checkComponent" text="Next" />)}
       </div>
     )
   }
 }
 
 Income.propTypes = {
-  incomePassChange: PropTypes.func,
-  selectIncomePassChange: PropTypes.func,
-  incomeChange: PropTypes.func,
   income: PropTypes.string,
-  setGlobalError: PropTypes.func
+  selectIncomePass: PropTypes.bool,
+  incomePass: PropTypes.bool,
+  globalError: PropTypes.bool,
+  checkComponent: PropTypes.bool,
+  setValueComponent: PropTypes.func,
 }
 
 export default Income
