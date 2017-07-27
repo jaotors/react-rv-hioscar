@@ -46,9 +46,9 @@ class ZipCode extends React.Component {
 
     if(errors.length < 1) hasError = false
     const setError = errors.length < 1 ? true : false
+    zipCodeChange(e, hasError)
     this.props.setValueComponent("globalError", setError)
 
-    zipCodeChange(e, hasError)
     this.setState({
       errors: errors
     })

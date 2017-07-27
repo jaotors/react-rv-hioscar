@@ -22,6 +22,7 @@ class SelectCover extends React.Component {
 
   handleChange(e) {
     this.props.setValueComponent("coverInput", parseInt(e.target.value))
+    this.props.setValueComponent("kidsInput", this.props.kidsSelect)
   }
 
   componentDidMount() {

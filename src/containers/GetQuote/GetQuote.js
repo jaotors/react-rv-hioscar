@@ -22,12 +22,12 @@ class GetQuote extends React.Component {
       ages: {
         myAge: '',
       },
-      ageInputError: true,
       coverInput: 0,
       kidsInput: 0,
+      income: '',
+      ageInputError: true,
       selectIncomePass: false,
       incomePass: false,
-      income: '',
       globalError: true,
       checkComponent: false,
       checkPlan: false,
@@ -60,7 +60,7 @@ class GetQuote extends React.Component {
         {(!this.state.checkComponent) &&
           <ZipCode setValueComponent={this.setValueComponent} zipCode={this.state.zipCode} zipCodeChange={this.zipCodeChange} />}
         {(!this.state.zipCode.error) && (!this.state.checkComponent) &&
-          <SelectCover setValueComponent={this.setValueComponent} />}
+          <SelectCover setValueComponent={this.setValueComponent} kidsSelect={this.state.kidsInput} />}
         {
           (this.state.coverInput > 0) && (!this.state.checkComponent) &&
             <AgeInput

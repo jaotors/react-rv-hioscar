@@ -19,7 +19,7 @@ class KidsAge extends React.Component {
     return (
       <span>
         {(coverSelect != 3 && coverSelect != 4) ? '' : ' and my '}
-        <KidSelect setValueComponent={setValueComponent} kidsAgeChange={kidsAgeChange} />
+        <KidSelect setValueComponent={setValueComponent} kidsSelect={kidsSelect} kidsAgeChange={kidsAgeChange} />
         {(kidsSelect < 2 ? 'kid is' : 'kids are')}
         {
           (kidsSelect < 1 ) ? '' : (

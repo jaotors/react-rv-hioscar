@@ -29,7 +29,7 @@ class AgeInput extends React.Component {
 
   componentWillMount() {
     let ages = this.props.ages
-    let errors = []
+    let errors = this.state.errors
     if(!errors.some(err => err === this.state.errCodes[0])) errors = errors.concat(this.state.errCodes[0])
 
     if(this.props.coverSelect === 2 || this.props.coverSelect === 3) {
@@ -120,6 +120,7 @@ class AgeInput extends React.Component {
         }
       } else {
         kidsAges = kidsAges.slice(0, value)
+        if(kidsAges.some(kids => kids !== '')) errors = errors.filter(err => err !== this.state.errCodes[4])
       }
     }
 
@@ -137,17 +138,16 @@ class AgeInput extends React.Component {
   handleChange(e) {
     let errors = this.state.errors
     const {id, value} = e.target
-
     let ages = this.props.ages
-
     let kidsAges = this.state.kidsAges
+
     if(id.substr(0, 4) === 'kids') {
       let kidId = id.substr(id.length-1)
       kidsAges[kidId-1] = value
       ages.kidsAges = kidsAges
     }
 
-    if(this.state.kidsAges.length > 1) {
+    if(this.state.kidsAges.length > 0) {
       if(this.state.kidsAges.some(kids => kids === '')) {
         if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
       } else {
