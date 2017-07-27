@@ -18,7 +18,7 @@ body {
   right: 0;
   bottom: 0;
   align-items: center;
-  justify-content: center;2
+  justify-content: center;
 }
 
 p {
@@ -41,6 +41,10 @@ select option {
 }
 
 #root {
-  max-width: 800px;
+  width: 800px;
   padding: 20px;
+}
+
+.small {
+  font-size: 14px;
 }

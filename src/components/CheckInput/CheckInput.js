@@ -4,11 +4,12 @@ import './CheckInput.css'
 
 const CheckInput = (props) => {
   return(
-    <label className="check-container" htmlFor={props.id}>
+    <label className="checkContainer" htmlFor={props.id}>
       <input onChange={props.handleChange} type="checkbox" id={props.id} name={props.name} />
-      <span className="check-label-container">
-        <span className="check-label">{props.checkLabel}</span>
-        <span className="check-example">{props.checkExample}</span>
+      <span className="checkBox"></span>
+      <span className="checkLabelContainer">
+        <span className="checkLabel">{props.checkLabel}</span>
+        <span className="checkExample">{props.checkExample}</span>
       </span>
     </label>
   )

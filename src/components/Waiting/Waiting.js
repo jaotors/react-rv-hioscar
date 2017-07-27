@@ -18,7 +18,7 @@ class Waiting extends React.Component {
     }, 500)
     setTimeout(() => {
       this.props.setValueComponent("doneComponent", true)
-    }, 3000)
+    }, 4000)
   }
 
   render() {

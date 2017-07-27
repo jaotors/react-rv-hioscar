@@ -65,6 +65,7 @@ class ZipCode extends React.Component {
   render() {
     return (
       <div className={(!this.state.visible) ? 'zipcodeContainer' : 'zipcodeContainer active'}>
+        <p className="small">Let’s get you a quote — it only takes a few seconds.</p>
         <p>My zipcode is <Input id="zipcode" handleChange={this.handleChange} /></p>
         <Errors errors={this.state.errors} />
       </div>

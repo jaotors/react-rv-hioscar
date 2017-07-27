@@ -10,7 +10,7 @@
 }
 
 .checklistContainer h2 {
-  margin: 0 0 5px;
+  margin: 0 0 10px;
 }
 
 .checklistContainer p {
@@ -19,9 +19,13 @@
 
 .checklistContainer ul {
   padding: 0;
-  margin: 0 0 10px;
+  margin: 0 0 20px;
   list-style-type: none;
 }
 .checklistContainer ul li:not(:last-child) {
   margin-bottom: 20px;
+}
+
+.checklistContainer ul li span:not(:last-child) {
+  font-size: 18px;
 }
