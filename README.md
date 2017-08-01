@@ -1,9 +1,6 @@
 # Recreate hi-oscar get quote
 ### Lists of need to do
-  - check list component
-  - thank you component
-  - done component
-  - styles 40%
+  - adding redux and webpack
 
 ## React Starter
 ## Quick start
