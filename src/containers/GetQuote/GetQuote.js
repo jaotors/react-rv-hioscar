@@ -9,6 +9,7 @@ import CheckList from '../../components/CheckList/CheckList'
 import Waiting from '../../components/Waiting/Waiting'
 import Done from '../../components/Done/Done'
 
+import background from '../../utils/images/background.jpg'
 import './GetQuote.css';
 
 class GetQuote extends React.Component {
@@ -57,6 +58,7 @@ class GetQuote extends React.Component {
   render() {
     return (
       <div>
+        <img className="mainBg" src={background} alt=""/>
         {(!this.state.checkComponent) &&
           <ZipCode setValueComponent={this.setValueComponent} zipCode={this.state.zipCode} zipCodeChange={this.zipCodeChange} />}
         {(!this.state.zipCode.error) && (!this.state.checkComponent) &&

@@ -21,9 +21,12 @@
 
 .doneContainer p a {
   text-decoration: none;
-  color: #2b427e;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.5s;
 }
 
 .doneContainer p a:hover {
+  color: #3d529f;
   text-decoration: underline;
 }
