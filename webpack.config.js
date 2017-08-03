@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HappyPack = require('happypack')
 const webpack = require('webpack')
 const path = require('path')
 
@@ -6,9 +7,7 @@ module.exports = {
   cache: true,
   devtool: 'cheap-module-eval-source-map',
   entry: {
-    app: [
-      './src/index.js'
-    ]
+    app: ['babel-polyfill','./src/index.js']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -27,7 +26,23 @@ module.exports = {
         exclude: /node_modules/,
         use: [{
           loader: 'babel-loader'
-        }]
+        }
+          /*{
+            loader: 'happypack/loader',
+            options: {
+              presets: ['es2015','react','stage-0'],
+              plugins: [
+                'add-module-exports',
+                'syntax-async-functions',
+                'transform-regenerator',
+                'transform-object-rest-spread',
+                'syntax-dynamic-import',
+                'transform-regenerator'
+              ],
+              compact : false
+            }
+          }*/
+        ]
       },
       {
         test: /\.css$/,
@@ -65,7 +80,22 @@ module.exports = {
       minChunks: function(module) {
         return module.context && module.context.indexOf('node_modules') !== -1
       }
-    })
+    }),
+    /*new HappyPack({
+      loaders: [{
+        path: 'babel-loader',
+        query: {
+          plugins: [
+            'babel-plugin-add-module-exports',
+            'babel-plugin-syntax-async-functions',
+            'babel-plugin-syntax-dynamic-import',
+            'babel-plugin-transform-object-rest-spread',
+            'babel-plugin-transform-regenerator'
+          ],
+          presets: ['es2015', 'react', 'stage-0'],
+        }
+      }],
+    })*/
   ],
   node: {
     fs: 'empty',

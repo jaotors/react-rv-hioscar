@@ -2,11 +2,13 @@ import { combineReducers } from 'redux'
 import modules from './modules'
 
 const { 
-  zipcode 
+  zipcode ,
+  globalError
 } = modules
 
 const rootReducer = combineReducers({
-  zipcode
+  zipcode,
+  globalError
 })
 
 export default rootReducer

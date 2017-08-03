@@ -1,7 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
+import { zipCodeChange, hasErrorChange } from './action'
+import { addGlobalErr, removeGlobalErr } from '../../redux/modules/globalError'
 import './ZipCode.css'
 
 class ZipCode extends React.Component {
@@ -20,33 +23,42 @@ class ZipCode extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(e) {
-    const {zipCode, zipCodeChange} = this.props
+  async handleChange(e) {
+    const {
+      onZipCodeChange,
+      onHasErrorChange,
+      onAddGlobalError,
+      onRemoveGlobalError,
+    } = this.props
+
     let errors = this.state.errors
-    let hasError = zipCode.error
     const zipMatch = this.state.zipcodes.some(zip => zip == e.target.value)
 
     if(zipMatch) {
       errors = errors.filter(err => err !== this.state.errCodes[0])
+      await onZipCodeChange(e.target.value)
+      onRemoveGlobalError(this.state.errCodes[0])
     } else {
       const error = this.state.errors.some(err => err === this.state.errCodes[0])
       if(!error) {
         errors = errors.concat(this.state.errCodes[0])
+        onAddGlobalError(this.state.errCodes[0])
       }
     }
 
     if(e.target.value.length === 4) {
       errors = errors.filter(err => err !== this.state.errCodes[1])
+      onRemoveGlobalError(this.state.errCodes[1])
     } else {
       const error = this.state.errors.some(err => err === this.state.errCodes[1])
       if(!error) {
         errors = errors.concat(this.state.errCodes[1])
+        onAddGlobalError(this.state.errCodes[1])
       }
     }
 
-    if(errors.length < 1) hasError = false
+    if(errors.length < 1) onHasErrorChange()
     const setError = errors.length < 1 ? true : false
-    zipCodeChange(e, hasError)
     this.props.setValueComponent("globalError", setError)
 
     this.setState({
@@ -75,8 +87,15 @@ class ZipCode extends React.Component {
 
 ZipCode.propTypes = {
   zipCode: PropTypes.object,
-  zipCodeChange: PropTypes.func,
   setValueComponent: PropTypes.func
 }
 
-export default ZipCode
+export default connect(
+  state => ({ zipcode: state.zipcode }),
+  dispatch => ({
+    onZipCodeChange: (zipcode) => dispatch(zipCodeChange(zipcode)),
+    onHasErrorChange: () => dispatch(hasErrorChange),
+    onAddGlobalError: (error) => dispatch(addGlobalErr(error)),
+    onRemoveGlobalError: (error) => dispatch(removeGlobalErr(error))
+  })
+)(ZipCode)

@@ -1,14 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Errors from '../../components/Errors/Errors'
 import ZipCode from '../../components/ZipCode/ZipCode'
 import SelectCover from '../../components/SelectCover/SelectCover'
 import AgeInput from '../../components/AgeInput/AgeInput'
 import Income from '../../components/Income/Income'
-import Button from '../../components/Button/Button'
 import CheckList from '../../components/CheckList/CheckList'
 import Waiting from '../../components/Waiting/Waiting'
 import Done from '../../components/Done/Done'
-
 import background from '../../utils/images/background.jpg'
 import './GetQuote.css';
 
@@ -16,10 +15,6 @@ class GetQuote extends React.Component {
   constructor() {
     super(),
     this.state = {
-      zipCode: {
-        value: '',
-        error: true
-      },
       ages: {
         myAge: '',
       },
@@ -36,17 +31,7 @@ class GetQuote extends React.Component {
       doneComponent: false
     }
 
-    this.zipCodeChange = this.zipCodeChange.bind(this)
     this.setValueComponent = this.setValueComponent.bind(this)
-  }
-
-  zipCodeChange(e, hasError) {
-    this.setState({
-      zipCode: {
-        value: e.target.value,
-        error: hasError
-      }
-    })
   }
 
   setValueComponent(key, value) {
@@ -56,12 +41,13 @@ class GetQuote extends React.Component {
   }
 
   render() {
+    const {zipcode} = this.props
     return (
       <div>
         <img className="mainBg" src={background} alt=""/>
         {(!this.state.checkComponent) &&
-          <ZipCode setValueComponent={this.setValueComponent} zipCode={this.state.zipCode} zipCodeChange={this.zipCodeChange} />}
-        {(!this.state.zipCode.error) && (!this.state.checkComponent) &&
+          <ZipCode setValueComponent={this.setValueComponent} />}
+        {(!zipcode.hasError) && (!this.state.checkComponent) &&
           <SelectCover setValueComponent={this.setValueComponent} kidsSelect={this.state.kidsInput} />}
         {
           (this.state.coverInput > 0) && (!this.state.checkComponent) &&
@@ -94,4 +80,6 @@ class GetQuote extends React.Component {
   }
 }
 
-export default GetQuote
+export default connect(
+  state => ({ zipcode: state.zipcode })
+)(GetQuote)
