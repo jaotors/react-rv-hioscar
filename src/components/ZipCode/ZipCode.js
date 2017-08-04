@@ -23,7 +23,7 @@ class ZipCode extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  async handleChange(e) {
+  handleChange(e) {
     const {
       onZipCodeChange,
       onHasErrorChange,
@@ -36,7 +36,7 @@ class ZipCode extends React.Component {
 
     if(zipMatch) {
       errors = errors.filter(err => err !== this.state.errCodes[0])
-      await onZipCodeChange(e.target.value)
+      onZipCodeChange(e.target.value)
       onRemoveGlobalError(this.state.errCodes[0])
     } else {
       const error = this.state.errors.some(err => err === this.state.errCodes[0])
@@ -58,8 +58,6 @@ class ZipCode extends React.Component {
     }
 
     if(errors.length < 1) onHasErrorChange()
-    const setError = errors.length < 1 ? true : false
-    this.props.setValueComponent("globalError", setError)
 
     this.setState({
       errors: errors
@@ -86,15 +84,18 @@ class ZipCode extends React.Component {
 }
 
 ZipCode.propTypes = {
-  zipCode: PropTypes.object,
-  setValueComponent: PropTypes.func
+  zipcode: PropTypes.object,
+  onZipCodeChange: PropTypes.func,
+  onHasErrorChange: PropTypes.func,
+  onAddGlobalError: PropTypes.func,
+  onRemoveGlobalError: PropTypes.func
 }
 
 export default connect(
   state => ({ zipcode: state.zipcode }),
   dispatch => ({
     onZipCodeChange: (zipcode) => dispatch(zipCodeChange(zipcode)),
-    onHasErrorChange: () => dispatch(hasErrorChange),
+    onHasErrorChange: () => dispatch(hasErrorChange()),
     onAddGlobalError: (error) => dispatch(addGlobalErr(error)),
     onRemoveGlobalError: (error) => dispatch(removeGlobalErr(error))
   })

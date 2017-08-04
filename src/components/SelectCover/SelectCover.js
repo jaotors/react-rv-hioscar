@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { selectCoverChange } from './action'
 import './SelectCover.css'
 
 class SelectCover extends React.Component {
@@ -21,8 +23,7 @@ class SelectCover extends React.Component {
   }
 
   handleChange(e) {
-    this.props.setValueComponent("coverInput", parseInt(e.target.value))
-    this.props.setValueComponent("kidsInput", this.props.kidsSelect)
+    this.props.onSelectCoverChange(parseInt(e.target.value))
   }
 
   componentDidMount() {
@@ -52,7 +53,12 @@ class SelectCover extends React.Component {
 }
 
 SelectCover.propTypes = {
-  setValueComponent: PropTypes.func
+  onSelectCoverChange: PropTypes.func
 }
 
-export default SelectCover
+export default connect(
+  state => ({ coverInput: state.selectCover.coverInput }),
+  dispatch => ({
+    onSelectCoverChange: (value) => dispatch(selectCoverChange(value))
+  })
+)(SelectCover)

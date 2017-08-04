@@ -24,10 +24,8 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader'
-        }
-          /*{
+        use: [
+          {
             loader: 'happypack/loader',
             options: {
               presets: ['es2015','react','stage-0'],
@@ -41,7 +39,7 @@ module.exports = {
               ],
               compact : false
             }
-          }*/
+          }
         ]
       },
       {
@@ -57,7 +55,7 @@ module.exports = {
             loader: 'image-webpack-loader',
             query: {
               mozjpeg: {
-                quality: 95,
+                quality: 85,
                 progressive: true
               }
             }
@@ -81,7 +79,7 @@ module.exports = {
         return module.context && module.context.indexOf('node_modules') !== -1
       }
     }),
-    /*new HappyPack({
+    new HappyPack({
       loaders: [{
         path: 'babel-loader',
         query: {
@@ -95,7 +93,7 @@ module.exports = {
           presets: ['es2015', 'react', 'stage-0'],
         }
       }],
-    })*/
+    })
   ],
   node: {
     fs: 'empty',

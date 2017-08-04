@@ -15,20 +15,10 @@ class GetQuote extends React.Component {
   constructor() {
     super(),
     this.state = {
-      ages: {
-        myAge: '',
-      },
-      coverInput: 0,
-      kidsInput: 0,
       income: '',
-      ageInputError: true,
       selectIncomePass: false,
       incomePass: false,
-      globalError: true,
-      checkComponent: false,
       checkPlan: false,
-      waitingComponent: false,
-      doneComponent: false
     }
 
     this.setValueComponent = this.setValueComponent.bind(this)
@@ -41,39 +31,35 @@ class GetQuote extends React.Component {
   }
 
   render() {
-    const {zipcode} = this.props
+    const {
+      zipcode,
+      coverInput,
+      component,
+      ageInput
+    } = this.props
     return (
       <div>
         <img className="mainBg" src={background} alt=""/>
-        {(!this.state.checkComponent) &&
-          <ZipCode setValueComponent={this.setValueComponent} />}
-        {(!zipcode.hasError) && (!this.state.checkComponent) &&
-          <SelectCover setValueComponent={this.setValueComponent} kidsSelect={this.state.kidsInput} />}
-        {
-          (this.state.coverInput > 0) && (!this.state.checkComponent) &&
-            <AgeInput
-              coverSelect={this.state.coverInput}
-              kidsSelect={this.state.kidsInput}
-              ages={this.state.ages}
-              setValueComponent={this.setValueComponent}
-            />
-        }
-        {
-          (!this.state.ageInputError) && (!this.state.checkComponent) &&
-            <Income
+        {(!component.checkComponent) &&
+          <ZipCode />}
+        {(!zipcode.hasError) && (!component.checkComponent) &&
+          <SelectCover />}
+        {(coverInput > 0) && (!component.checkComponent) &&
+          <AgeInput /> }
+        {(!ageInput.hasError) && (!component.checkComponent) &&
+          <Income
               income={this.state.income}
               selectIncomePass={this.state.selectIncomePass}
               incomePass={this.state.incomePass}
               globalError={this.state.globalError}
-              checkComponent={this.state.checkComponent}
+              checkComponent={component.checkComponent}
               setValueComponent={this.setValueComponent}
-            />
-        }
-        {this.state.checkComponent && (!this.state.waitingComponent) &&
+            />}
+        {component.checkComponent && (!component.waitingComponent) &&
           <CheckList checkChange={this.checkChange} setValueComponent={this.setValueComponent} checkPlan={this.state.checkPlan} /> }
-        {(this.state.waitingComponent) && (!this.state.doneComponent) &&
+        {(component.waitingComponent) && (!component.doneComponent) &&
           <Waiting setValueComponent={this.setValueComponent} />}
-        {(this.state.doneComponent) &&
+        {(component.doneComponent) &&
           <Done />}
       </div>
     )
@@ -81,5 +67,10 @@ class GetQuote extends React.Component {
 }
 
 export default connect(
-  state => ({ zipcode: state.zipcode })
+  state => ({ 
+    zipcode: state.zipcode,
+    component: state.component,
+    coverInput: state.selectCover.coverInput,
+    ageInput: state.ageInput
+  })
 )(GetQuote)

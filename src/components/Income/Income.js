@@ -1,8 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
 import Button from '../Button/Button'
+import {  } from './action'
 import styles from './Income.css'
 
 class Income extends React.Component {
@@ -96,4 +98,11 @@ Income.propTypes = {
   setValueComponent: PropTypes.func,
 }
 
-export default Income
+export default connect(
+  state => ({ globalError: state.globalError.error, income: state.income }),
+  dispatch => ({
+    onIncomeChange: (value) => dispatch(income(value)),
+    onSelectIncomePassChange: (value) => dispatch(selectIncomePass(value)),
+    onIncomePassChange: (value) => dispatch(incomePass(value))
+  })
+)(Income)

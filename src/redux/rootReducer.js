@@ -3,12 +3,20 @@ import modules from './modules'
 
 const { 
   zipcode ,
-  globalError
+  selectCover,
+  ageInput,
+  income,
+  globalError,
+  component
 } = modules
 
 const rootReducer = combineReducers({
   zipcode,
-  globalError
+  selectCover,
+  ageInput,
+  income,
+  globalError,
+  component
 })
 
 export default rootReducer

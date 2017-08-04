@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import KidSelect from '../KidSelect/KidSelect'
@@ -7,10 +8,9 @@ class KidsAge extends React.Component {
 
   render() {
     const {
-      coverSelect,
-      setValueComponent,
-      kidsSelect,
+      coverInput,
       kidsInput,
+      kidsInputArr,
       handleChange,
       replaceText,
       kidsAgeChange
@@ -18,13 +18,13 @@ class KidsAge extends React.Component {
 
     return (
       <span>
-        {(coverSelect != 3 && coverSelect != 4) ? '' : ' and my '}
-        <KidSelect setValueComponent={setValueComponent} kidsSelect={kidsSelect} kidsAgeChange={kidsAgeChange} />
-        {(kidsSelect < 2 ? 'kid is' : 'kids are')}
+        {(coverInput != 3 && coverInput != 4) ? '' : ' and my '}
+        <KidSelect kidsAgeChange={kidsAgeChange} />
+        {(kidsInput < 2 ? 'kid is' : 'kids are')}
         {
-          (kidsSelect < 1 ) ? '' : (
-            kidsInput.map((kids, index) => {
-              return <span key={index}><Input id={kids} handleChange={handleChange} />{replaceText(index, kidsInput.length)}</span>
+          (kidsInput < 1 ) ? '' : (
+            kidsInputArr.map((kids, index) => {
+              return <span key={index}><Input id={kids} handleChange={handleChange} />{replaceText(index, kidsInputArr.length)}</span>
             })
           )
         }
@@ -34,13 +34,17 @@ class KidsAge extends React.Component {
 }
 
 KidsAge.propTypes = {
-  coverSelect: PropTypes.number,
-  kidsSelect: PropTypes.number,
-  kidsInput: PropTypes.array,
-  setValueComponent: PropTypes.func,
-  replaceText: PropTypes.func,
+  coverInput: PropTypes.number,
+  kidsInput: PropTypes.number,
+  kidsInputArr: PropTypes.array,
   handleChange: PropTypes.func,
+  replaceText: PropTypes.func,
   kidsAgeChange: PropTypes.func,
 }
 
-export default KidsAge
+export default connect(
+  state => ({
+    coverInput: state.selectCover.coverInput,
+    kidsInput: state.ageInput.kidsInput
+  })
+)(KidsAge)

@@ -1,9 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import SpouseAge from '../SpouseAge/SpouseAge'
 import KidsAge from '../KidsAge/KidsAge'
 import Errors from '../Errors/Errors'
+import { agesChange, hasErrorChange } from './action'
+import { addGlobalErr, removeGlobalErr } from '../../redux/modules/globalError'
 
 import './AgeInput.css'
 
@@ -29,20 +32,30 @@ class AgeInput extends React.Component {
 
   componentWillMount() {
     let ages = this.props.ages
-    let errors = this.state.errors
-    if(!errors.some(err => err === this.state.errCodes[0])) errors = errors.concat(this.state.errCodes[0])
+    const { onAddGlobalError } = this.props
+    let {errors, errCodes, kidsAges} = this.state
+    if(!errors.some(err => err === errCodes[0])) {
+      errors = errors.concat(errCodes[0])
+      onAddGlobalError(errCodes[0])
+    }
 
-    if(this.props.coverSelect === 2 || this.props.coverSelect === 3) {
+    if(this.props.coverInput === 2 || this.props.coverInput === 3) {
       ages = Object.assign({}, ages, {spouseAge: ''})
-      if(!errors.some(err => err === this.state.errCodes[2])) errors = errors.concat(this.state.errCodes[2])
+      if(!errors.some(err => err === errCodes[2])) {
+        errors = errors.concat(errCodes[2])
+        onAddGlobalError(errCodes[2])
+      }
     }
 
-    if(this.props.coverSelect === 3 || this.props.coverSelect === 4) {
-      ages = Object.assign({}, ages, {kidsAges: this.state.kidsAges})
-      if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
+    if(this.props.coverInput === 3 || this.props.coverInput === 4) {
+      ages = Object.assign({}, ages, {kidsAges: kidsAges})
+      if(!errors.some(err => err === errCodes[4])) {
+        errors = errors.concat(errCodes[4])
+        onAddGlobalError(errCodes[4])
+      }
     }
 
-    this.props.setValueComponent("ages",ages)
+    this.props.onAgesChange(ages)
     this.setState({
       errors: errors
     })
@@ -57,44 +70,52 @@ class AgeInput extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.coverSelect !== this.props.coverSelect) {
+    if(prevProps.coverInput !== this.props.coverInput) {
       let ages = this.props.ages
+      const { onAddGlobalError, onAgesChange, coverInput } = this.props
+      const { errCodes, kidsAges } = this.state
       let errors = []
       if(ages.myAge === '') {
-        if(!errors.some(err => err === this.state.errCodes[0])) errors = errors.concat(this.state.errCodes[0])
+        if(!errors.some(err => err === errCodes[0])) {
+          errors = errors.concat(errCodes[0])
+          onAddGlobalError(errCodes[0])
+        }
       }
 
-      switch(this.props.coverSelect) {
+      switch(coverInput) {
         case 1:
-          delete ages.spouseAge
-          delete ages.kidsAges
+          ages.spouseAge = undefined
+          ages.kidsAges = undefined
           break
         case 2:
-          delete ages.kidsAges
+          ages.kidsAges = undefined
           break
         case 4:
-          delete ages.spouseAge
+          ages.spouseAge = undefined
           break
       }
 
-      if(this.props.coverSelect === 2 || this.props.coverSelect === 3) {
+      if(coverInput === 2 || coverInput === 3) {
         if(ages.spouseAge === undefined) ages = Object.assign({}, ages, {spouseAge: ''})
         if(ages.spouseAge === '') {
-          if(!errors.some(err => err === this.state.errCodes[2])) errors = errors.concat(this.state.errCodes[2])
+          if(!errors.some(err => err === errCodes[2])) {
+            errors = errors.concat(errCodes[2])
+            onAddGlobalError(errCodes[2])
+          }
         }
       }
 
-      if(this.props.coverSelect === 3 || this.props.coverSelect === 4) {
-        if(ages.kidsAges === undefined) ages = Object.assign({}, ages, {kidsAges: this.state.kidsAges})
+      if(coverInput === 3 || coverInput === 4) {
+        if(ages.kidsAges === undefined) ages = Object.assign({}, ages, {kidsAges: kidsAges})
         if(ages.kidsAges.some(kids => kids === '') || ages.kidsAges.length < 1) {
-          if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
+          if(!errors.some(err => err === errCodes[4])) {
+            errors = errors.concat(errCodes[4])
+            onAddGlobalError(errCodes[4])
+          }
         }
       }
 
-      const setError = errors.length < 1 ? true : false
-      this.props.setValueComponent("globalError",setError)
-      this.props.setValueComponent("ages",ages)
-
+      onAgesChange(ages)
       this.setState({
         errors: errors,
         kidsAges: (ages.kidsAges === undefined) ? [] : ages.kidsAges
@@ -105,7 +126,7 @@ class AgeInput extends React.Component {
   kidsAgeChange(e) {
     const value = parseInt(e.target.value)
     let kidsAges = this.state.kidsAges
-    let ages = this.props.ages
+    const {onAgesChange, onAddGlobalError, ages} = this.props
     let errors = this.state.errors
 
     if(kidsAges.length < 1) {
@@ -116,30 +137,33 @@ class AgeInput extends React.Component {
       if(kidsAges.length < value) {
         for(let i = kidsAges.length; i < value; i++) {
           kidsAges = kidsAges.concat('')
-          if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
+          if(!errors.some(err => err === this.state.errCodes[4])) {
+            errors = errors.concat(this.state.errCodes[4])
+            onAddGlobalError(this.state.errCodes[4])
+          }
         }
       } else {
         kidsAges = kidsAges.slice(0, value)
-        if(kidsAges.some(kids => kids !== '')) errors = errors.filter(err => err !== this.state.errCodes[4])
+        if(kidsAges.some(kids => kids !== '')) {
+          errors = errors.filter(err => err !== this.state.errCodes[4])
+          onRemoveGlobalError(this.state.errCodes[4])
+        }
       }
     }
-
-    const setError = errors.length < 1 ? true : false
-    this.props.setValueComponent("globalError",setError)
 
     ages.kidsAges = kidsAges
     this.setState({
       kidsAges,
       errors
     })
-    this.props.setValueComponent("ages",ages)
+    onAgesChange(ages)
   }
 
   handleChange(e) {
-    let errors = this.state.errors
     const {id, value} = e.target
+    let { kidsAges, errCodes, errors } = this.state
     let ages = this.props.ages
-    let kidsAges = this.state.kidsAges
+    const { onAddGlobalError, onRemoveGlobalError, onAgesChange, onHasErrorChange } = this.props
 
     if(id.substr(0, 4) === 'kids') {
       let kidId = id.substr(id.length-1)
@@ -147,11 +171,15 @@ class AgeInput extends React.Component {
       ages.kidsAges = kidsAges
     }
 
-    if(this.state.kidsAges.length > 0) {
-      if(this.state.kidsAges.some(kids => kids === '')) {
-        if(!errors.some(err => err === this.state.errCodes[4])) errors = errors.concat(this.state.errCodes[4])
+    if(kidsAges.length > 0) {
+      if(kidsAges.some(kids => kids === '')) {
+        if(!errors.some(err => err === errCodes[4])) {
+          errors = errors.concat(errCodes[4])
+          onAddGlobalError(errCodes[4])
+        }
       } else {
-        errors = errors.filter(err => err !== this.state.errCodes[4])
+        errors = errors.filter(err => err !== errCodes[4])
+        onRemoveGlobalError(errCodes[4])
       }
     }
 
@@ -159,48 +187,66 @@ class AgeInput extends React.Component {
       if(id === 'myAge') {
         ages.myAge = value
         if(value < 18) {
-          errors = errors.filter(err => err !== this.state.errCodes[0])
-          if(!errors.some(err => err === this.state.errCodes[1])) errors = errors.concat(this.state.errCodes[1])
+          errors = errors.filter(err => err !== errCodes[0])
+          onRemoveGlobalError(errCodes[0])
+          if(!errors.some(err => err === errCodes[1])) {
+            errors = errors.concat(errCodes[1])
+            onAddGlobalError(errCodes[1])
+          }
         } else {
-          errors = errors.filter(err => err !== this.state.errCodes[1])
+          errors = errors.filter(err => err !== errCodes[1])
+          onRemoveGlobalError(errCodes[1])
         }
 
         if(value === '') {
-          errors = errors.filter(err => err !== this.state.errCodes[1])
-          if(!errors.some(err => err === this.state.errCodes[0])) errors = errors.concat(this.state.errCodes[0])
+          errors = errors.filter(err => err !== errCodes[1])
+          onRemoveGlobalError(errCodes[1])
+          if(!errors.some(err => err === errCodes[0])) {
+            errors = errors.concat(errCodes[0])
+            onAddGlobalError(errCodes[0])
+          }
         } else {
-          errors = errors.filter(err => err !== this.state.errCodes[0])
+          errors = errors.filter(err => err !== errCodes[0])
+          onRemoveGlobalError(errCodes[0])
         }
       }
 
       if(id === 'spouseAge') {
         ages.spouseAge = value
         if(value < 18) {
-          errors = errors.filter(err => err !== this.state.errCodes[2])
-          if(!errors.some(err => err === this.state.errCodes[3])) errors = errors.concat(this.state.errCodes[3])
+          errors = errors.filter(err => err !== errCodes[2])
+          onRemoveGlobalError(errCodes[2])
+          if(!errors.some(err => err === errCodes[3])) {
+            errors = errors.concat(errCodes[3])
+            onAddGlobalError(errCodes[3])
+          }
         } else {
-          errors = errors.filter(err => err !== this.state.errCodes[3])
+          errors = errors.filter(err => err !== errCodes[3])
+          onRemoveGlobalError(errCodes[3])
         }
 
         if(value === '') {
-          errors = errors.filter(err => err !== this.state.errCodes[3])
-          if(!errors.some(err => err === this.state.errCodes[2])) errors = errors.concat(this.state.errCodes[2])
+          errors = errors.filter(err => err !== errCodes[3])
+          onRemoveGlobalError(errCodes[3])
+          if(!errors.some(err => err === errCodes[2])) {
+            errors = errors.concat(errCodes[2])
+            onAddGlobalError(errCodes[2])
+          }
         } else {
-          errors = errors.filter(err => err !== this.state.errCodes[2])
+          errors = errors.filter(err => err !== errCodes[2])
+          onRemoveGlobalError(errCodes[2])
         }
       }
     }
 
     const setError = errors.length < 1 ? true : false
-
-    this.props.setValueComponent("ageInputError", !setError)
-    this.props.setValueComponent("globalError",setError)
+    onHasErrorChange(!setError)
 
     this.setState({
       errors,
       kidsAges: kidsAges
     })
-    this.props.setValueComponent("ages",ages)
+    onAgesChange(ages)
   }
 
   replaceText(index, length) {
@@ -215,12 +261,12 @@ class AgeInput extends React.Component {
   }
 
   render() {
-    const {coverSelect, setValueComponent, kidsSelect} = this.props
-    let kidsInput = []
+    const {coverInput, kidsSelect} = this.props
+    let kidsInputArr = []
     if(kidsSelect != 0) {
       for(let i = 1; i <= kidsSelect; i++) {
         let id = `kids${i}`
-        kidsInput = kidsInput.concat(id)
+        kidsInputArr = kidsInputArr.concat(id)
       }
     }
 
@@ -228,14 +274,11 @@ class AgeInput extends React.Component {
       <div className={(!this.state.visible) ? 'ageContainer' : 'ageContainer active'}>
         <p>
           I'm <Input id="myAge" handleChange={this.handleChange} /> years old 
-          {(coverSelect != 2 && coverSelect != 3) ? '' : 
-            <SpouseAge coverSelect={coverSelect} handleChange={this.handleChange} />}
-          {(coverSelect != 3 && coverSelect != 4) ? '' : 
+          {(coverInput != 2 && coverInput != 3) ? '' : 
+            <SpouseAge coverInput={coverInput} handleChange={this.handleChange} />}
+          {(coverInput != 3 && coverInput != 4) ? '' : 
             <KidsAge 
-              coverSelect={coverSelect}
-              kidsSelect={kidsSelect}
-              setValueComponent={setValueComponent}
-              kidsInput={kidsInput}
+              kidsInputArr={kidsInputArr}
               replaceText={this.replaceText}
               handleChange={this.handleChange}
               kidsAgeChange={this.kidsAgeChange} />}
@@ -247,10 +290,25 @@ class AgeInput extends React.Component {
 }
 
 AgeInput.propTypes = {
-  coverSelect: PropTypes.number,
+  coverInput: PropTypes.number,
   kidsSelect: PropTypes.number,
   ages: PropTypes.object,
-  setValueComponent: PropTypes.func,
+  onAgesChange: PropTypes.func,
+  onHasErrorChange: PropTypes.func,
+  onAddGlobalError: PropTypes.func,
+  onRemoveGlobalError: PropTypes.func,
 }
 
-export default AgeInput
+export default connect(
+  state => ({
+    ages: state.ageInput.ages,
+    coverInput: state.selectCover.coverInput,
+    kidsSelect: state.ageInput.kidsInput
+  }),
+  dispatch => ({
+    onAgesChange: (ages) => dispatch(agesChange(ages)),
+    onHasErrorChange: (value) => dispatch(hasErrorChange(value)),
+    onAddGlobalError: (error) => dispatch(addGlobalErr(error)),
+    onRemoveGlobalError: (error) => dispatch(removeGlobalErr(error))
+  })
+)(AgeInput)
