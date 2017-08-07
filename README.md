@@ -1,12 +1,19 @@
 # Recreate hi-oscar get quote
 
 ### Lists of need to do
-  - adding redux and webpack
+  - add redux-thunk or redux saga
 
-## React Starter
+### Done
+  - create react app
+  - separate comopnents and containers
+  - add styles
+  - add webpack
+  - add 3 optimization on the webpack
+  - add redux
+
+
 ## Quick start
 ### Yarn
-
 ```bash 
 ❯ yarn start
 ✔ Development server running on: http://localhost:5000
