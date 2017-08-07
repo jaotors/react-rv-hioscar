@@ -126,7 +126,7 @@ class AgeInput extends React.Component {
   kidsAgeChange(e) {
     const value = parseInt(e.target.value)
     let kidsAges = this.state.kidsAges
-    const {onAgesChange, onAddGlobalError, ages} = this.props
+    const {onAgesChange, onAddGlobalError, ages} = <this className="props"></this>
     let errors = this.state.errors
 
     if(kidsAges.length < 1) {

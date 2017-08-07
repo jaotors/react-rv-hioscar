@@ -21,6 +21,9 @@ class Button extends React.Component {
 
   handleClick() {
     this.props.onClick(true)
+    if(this.props.handlingDone !== undefined) {
+      this.props.handlingDone(3)
+    }
   }
 
   render() {

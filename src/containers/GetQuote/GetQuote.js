@@ -43,7 +43,7 @@ class GetQuote extends React.Component {
         {component.checkComponent && (!component.waitingComponent) &&
           <CheckList /> }
         {(component.waitingComponent) && (!component.doneComponent) &&
-          <Waiting setValueComponent={this.setValueComponent} />}
+          <Waiting />}
         {(component.doneComponent) &&
           <Done />}
       </div>

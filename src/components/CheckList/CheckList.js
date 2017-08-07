@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import CheckInput from '../CheckInput/CheckInput'
 import Button from '../Button/Button'
-import { checkChange } from './action'
+import { checkChange, asyncDoneChange } from './action'
 import { changeWaiting } from '../../redux/modules/component'
 import './CheckList.css'
 
@@ -67,7 +67,8 @@ class CheckList extends React.Component {
   render() {
     const {
       checkPlan,
-      onChangeWaiting
+      onChangeWaiting,
+      onAsyncDoneChange
     } = this.props
 
     return(
@@ -92,7 +93,7 @@ class CheckList extends React.Component {
             })
           }
         </ul>
-        <Button onClick={onChangeWaiting} text={checkPlan ? 'Get Quote' : 'Skip'} />
+        <Button onClick={onChangeWaiting} handlingDone={onAsyncDoneChange} text={checkPlan ? 'Get Quote' : 'Skip'} />
       </div>
     )
   }
@@ -108,6 +109,7 @@ export default connect(
   state => ({ checkPlan: state.checkplan.checkPlan }),
   dispatch => ({
     onCheckChange: (value) => dispatch(checkChange(value)),
-    onChangeWaiting: (value) => dispatch(changeWaiting(value))
+    onChangeWaiting: (value) => dispatch(changeWaiting(value)),
+    onAsyncDoneChange: (value) => dispatch(asyncDoneChange(value))
   })
 )(CheckList)

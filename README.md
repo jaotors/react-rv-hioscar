@@ -1,7 +1,8 @@
 # Recreate hi-oscar get quote
 
 ### Lists of need to do
-  - add redux-thunk or redux saga
+  - add redux saga
+  - add complex asynchronous for redux saga
 
 ### Done
   - create react app
