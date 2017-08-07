@@ -1,7 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import CheckInput from '../CheckInput/CheckInput'
 import Button from '../Button/Button'
+import { checkChange } from './action'
+import { changeWaiting } from '../../redux/modules/component'
 import './CheckList.css'
 
 class CheckList extends React.Component {
@@ -58,10 +61,15 @@ class CheckList extends React.Component {
     })
 
     const checkVal = this.state.checkedPlan.some(check => check === true)
-    this.props.setValueComponent("checkPlan", checkVal)
+    this.props.onCheckChange(checkVal)
   }
 
   render() {
+    const {
+      checkPlan,
+      onChangeWaiting
+    } = this.props
+
     return(
       <div className={(!this.state.visible) ? 'checklistContainer' : 'checklistContainer active'}>
         <h2>Let’s find the right plan for you!</h2>
@@ -84,7 +92,7 @@ class CheckList extends React.Component {
             })
           }
         </ul>
-        <Button setValueComponent={this.props.setValueComponent} keyVal="waitingComponent" text={this.props.checkPlan ? 'Get Quote' : 'Skip'} />
+        <Button onClick={onChangeWaiting} text={checkPlan ? 'Get Quote' : 'Skip'} />
       </div>
     )
   }
@@ -92,8 +100,14 @@ class CheckList extends React.Component {
 
 CheckList.propTypes = {
   checkPlan: PropTypes.bool,
-  checkChange: PropTypes.func,
-  setValueComponent: PropTypes.func,
+  onChangeWaiting: PropTypes.func,
+  onCheckChange: PropTypes.func,
 }
 
-export default CheckList
+export default connect(
+  state => ({ checkPlan: state.checkplan.checkPlan }),
+  dispatch => ({
+    onCheckChange: (value) => dispatch(checkChange(value)),
+    onChangeWaiting: (value) => dispatch(changeWaiting(value))
+  })
+)(CheckList)

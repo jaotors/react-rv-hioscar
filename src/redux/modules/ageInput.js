@@ -5,7 +5,7 @@ const initialState = {
     kidsAge: undefined
   },
   kidsInput: 0,
-  hasError: true
+  hasError: false
 }
 
 const ageInputReducer = (state=initialState, action) => {

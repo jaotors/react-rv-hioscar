@@ -20,7 +20,7 @@ class Button extends React.Component {
   }
 
   handleClick() {
-    this.props.setValueComponent(this.props.keyVal, true)
+    this.props.onClick(true)
   }
 
   render() {
@@ -34,7 +34,7 @@ class Button extends React.Component {
 
 Button.propTypes = {
   text: PropTypes.string,
-  setValueComponent: PropTypes.func
+  onClick: PropTypes.func
 }
 
 export default Button

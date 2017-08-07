@@ -15,19 +15,10 @@ class GetQuote extends React.Component {
   constructor() {
     super(),
     this.state = {
-      income: '',
       selectIncomePass: false,
       incomePass: false,
       checkPlan: false,
     }
-
-    this.setValueComponent = this.setValueComponent.bind(this)
-  }
-
-  setValueComponent(key, value) {
-    this.setState({
-      [key]: value
-    })
   }
 
   render() {
@@ -37,6 +28,7 @@ class GetQuote extends React.Component {
       component,
       ageInput
     } = this.props
+
     return (
       <div>
         <img className="mainBg" src={background} alt=""/>
@@ -46,17 +38,10 @@ class GetQuote extends React.Component {
           <SelectCover />}
         {(coverInput > 0) && (!component.checkComponent) &&
           <AgeInput /> }
-        {(!ageInput.hasError) && (!component.checkComponent) &&
-          <Income
-              income={this.state.income}
-              selectIncomePass={this.state.selectIncomePass}
-              incomePass={this.state.incomePass}
-              globalError={this.state.globalError}
-              checkComponent={component.checkComponent}
-              setValueComponent={this.setValueComponent}
-            />}
+        {(ageInput.hasError) && (!component.checkComponent) &&
+          <Income /> }
         {component.checkComponent && (!component.waitingComponent) &&
-          <CheckList checkChange={this.checkChange} setValueComponent={this.setValueComponent} checkPlan={this.state.checkPlan} /> }
+          <CheckList /> }
         {(component.waitingComponent) && (!component.doneComponent) &&
           <Waiting setValueComponent={this.setValueComponent} />}
         {(component.doneComponent) &&

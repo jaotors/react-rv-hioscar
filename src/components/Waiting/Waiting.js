@@ -1,5 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { changeDone } from '../../redux/modules/component'
 import './Waiting.css'
 
 class Waiting extends React.Component {
@@ -17,7 +19,7 @@ class Waiting extends React.Component {
       })
     }, 500)
     setTimeout(() => {
-      this.props.setValueComponent("doneComponent", true)
+      this.props.onChangeDone(true)
     }, 4000)
   }
 
@@ -36,4 +38,9 @@ Waiting.propTypes = {
   setValueComponent: PropTypes.func
 }
 
-export default Waiting
+export default connect(
+  state => ({ }),
+  dispatch => ({
+    onChangeDone: (value) => dispatch(changeDone(value))
+  })
+)(Waiting)

@@ -32,14 +32,14 @@ class AgeInput extends React.Component {
 
   componentWillMount() {
     let ages = this.props.ages
-    const { onAddGlobalError } = this.props
+    const { coverInput, onAddGlobalError } = this.props
     let {errors, errCodes, kidsAges} = this.state
     if(!errors.some(err => err === errCodes[0])) {
       errors = errors.concat(errCodes[0])
       onAddGlobalError(errCodes[0])
     }
 
-    if(this.props.coverInput === 2 || this.props.coverInput === 3) {
+    if(coverInput === 2 || coverInput === 3) {
       ages = Object.assign({}, ages, {spouseAge: ''})
       if(!errors.some(err => err === errCodes[2])) {
         errors = errors.concat(errCodes[2])
@@ -47,7 +47,7 @@ class AgeInput extends React.Component {
       }
     }
 
-    if(this.props.coverInput === 3 || this.props.coverInput === 4) {
+    if(coverInput === 3 || coverInput === 4) {
       ages = Object.assign({}, ages, {kidsAges: kidsAges})
       if(!errors.some(err => err === errCodes[4])) {
         errors = errors.concat(errCodes[4])
@@ -57,7 +57,7 @@ class AgeInput extends React.Component {
 
     this.props.onAgesChange(ages)
     this.setState({
-      errors: errors
+      errors
     })
   }
 
@@ -240,11 +240,10 @@ class AgeInput extends React.Component {
     }
 
     const setError = errors.length < 1 ? true : false
-    onHasErrorChange(!setError)
-
+    onHasErrorChange(setError)
     this.setState({
       errors,
-      kidsAges: kidsAges
+      kidsAges
     })
     onAgesChange(ages)
   }

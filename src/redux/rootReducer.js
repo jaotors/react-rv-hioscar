@@ -6,6 +6,7 @@ const {
   selectCover,
   ageInput,
   income,
+  checkplan,
   globalError,
   component
 } = modules
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   selectCover,
   ageInput,
   income,
+  checkplan,
   globalError,
   component
 })

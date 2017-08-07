@@ -1,0 +1,1 @@
+export const checkChange = (value) => ({type: 'CHECK_PLAN_CHANGE', value: value})
