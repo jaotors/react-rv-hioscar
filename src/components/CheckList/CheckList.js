@@ -67,12 +67,12 @@ class CheckList extends React.Component {
 
   handleClick() {
     const {
-      onCheckChange,
-      onChangeWaiting
+      onChangeWaiting,
+      onAsyncDoneChange
     } = this.props
 
-    onCheckChange(true)
-    onChangeWaiting(3)
+    onChangeWaiting(true)
+    onAsyncDoneChange(3)
   }
 
   render() {
@@ -110,6 +110,7 @@ CheckList.propTypes = {
   checkPlan: PropTypes.bool,
   onChangeWaiting: PropTypes.func,
   onCheckChange: PropTypes.func,
+  onAsyncDoneChange: PropTypes.func,
 }
 
 export default connect(
