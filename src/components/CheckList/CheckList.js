@@ -40,6 +40,7 @@ class CheckList extends React.Component {
       visible: false
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -64,12 +65,18 @@ class CheckList extends React.Component {
     this.props.onCheckChange(checkVal)
   }
 
-  render() {
+  handleClick() {
     const {
-      checkPlan,
-      onChangeWaiting,
-      onAsyncDoneChange
+      onCheckChange,
+      onChangeWaiting
     } = this.props
+
+    onCheckChange(true)
+    onChangeWaiting(3)
+  }
+
+  render() {
+    const { checkPlan } = this.props
 
     return(
       <div className={(!this.state.visible) ? 'checklistContainer' : 'checklistContainer active'}>
@@ -93,7 +100,7 @@ class CheckList extends React.Component {
             })
           }
         </ul>
-        <Button onClick={onChangeWaiting} handlingDone={onAsyncDoneChange} text={checkPlan ? 'Get Quote' : 'Skip'} />
+        <Button handleClick={this.handleClick} text={checkPlan ? 'Get Quote' : 'Skip'} />
       </div>
     )
   }

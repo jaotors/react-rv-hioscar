@@ -8,7 +8,6 @@ class Button extends React.Component {
     this.state = {
       visible: false
     }
-    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -19,17 +18,10 @@ class Button extends React.Component {
     }, 500)
   }
 
-  handleClick() {
-    this.props.onClick(true)
-    if(this.props.handlingDone !== undefined) {
-      this.props.handlingDone(3)
-    }
-  }
-
   render() {
     return(
       <div className={(!this.state.visible) ? 'btnContainer' : 'btnContainer active'}>
-        <button onClick={this.handleClick} >{this.props.text}</button>
+        <button onClick={this.props.handleClick} >{this.props.text}</button>
       </div>
     )
   }

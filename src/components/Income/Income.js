@@ -21,6 +21,7 @@ class Income extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.selectChange = this.selectChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentWillMount() {
@@ -72,6 +73,10 @@ class Income extends React.Component {
     })
   }
 
+  handleClick() {
+    this.props.onChangeCheck(true)
+  }
+
   render() {
     let count = []
     for(let i = 0; i < 9; i++) {
@@ -100,7 +105,7 @@ class Income extends React.Component {
         </p>
         <Errors errors={this.state.errors}/>
         {(income.selectIncomePass && income.incomePass && (globalError.length < 1) && (!checkComponent) &&
-          <Button onClick={this.props.onChangeCheck} text="Next" />)}
+          <Button handleClick={this.handleClick} text="Next" />)}
       </div>
     )
   }
@@ -115,6 +120,7 @@ Income.propTypes = {
   onIncomePassChange: PropTypes.func,
   onAddGlobalError: PropTypes.func,
   onRemoveGlobalError: PropTypes.func,
+  onChangeCheck: PropTypes.func,
 }
 
 export default connect(
