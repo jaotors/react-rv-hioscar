@@ -1,8 +1,8 @@
 # Recreate hi-oscar get quote
 
 ### Lists of need to do
-  - add redux saga
   - add complex asynchronous for redux saga
+  - thinking of separating of action and action creator.
 
 ### Done
   - create react app
