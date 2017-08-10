@@ -12,7 +12,7 @@ class KidSelect extends React.Component {
   handleChange(e) {
     const { onHasKidsInputChange, kidsAgeChange } = this.props
     onHasKidsInputChange(parseInt(e.target.value))
-    kidsAgeChange(e)
+    kidsAgeChange(e.target.value)
   }
 
   render() {
