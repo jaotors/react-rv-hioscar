@@ -12,15 +12,6 @@ import background from '../../utils/images/background.jpg'
 import './GetQuote.css';
 
 class GetQuote extends React.Component {
-  constructor() {
-    super(),
-    this.state = {
-      selectIncomePass: false,
-      incomePass: false,
-      checkPlan: false,
-    }
-  }
-
   render() {
     const {
       zipcode,

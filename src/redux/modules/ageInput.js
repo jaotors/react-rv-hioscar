@@ -15,10 +15,10 @@ const ageInputReducer = (state=initialState, action) => {
         ...state,
         ages: action.ages
       }
-    case 'HAS_ERROR_CHANGE':
+    case 'AGEINPUT_ERROR_CHANGE':
       return {
         ...state,
-        hasError: action.value
+        hasError: true
       }
     case 'KIDS_INPUT_CHANGE':
       return {

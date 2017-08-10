@@ -10,7 +10,7 @@ const zipCodeReducer = (state=initialState, action) => {
         ...state,
         zipcode: action.zipcode
       }
-    case 'HAS_ERROR_CHANGE':
+    case 'ZIPCODE_ERROR_CHANGE':
       return {
         ...state,
         hasError: false

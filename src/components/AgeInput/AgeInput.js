@@ -72,13 +72,21 @@ class AgeInput extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.coverInput !== this.props.coverInput) {
       let ages = this.props.ages
-      const { onAddGlobalError, onAgesChange, coverInput } = this.props
+      const { 
+        onAddGlobalError,
+        onRemoveGlobalError,
+        onAgesChange,
+        onHasErrorChange,
+        coverInput
+      } = this.props
+
       const { errCodes, kidsAges } = this.state
       let errors = []
+      onRemoveGlobalError(errCodes[0])
       if(ages.myAge === '') {
+        onAddGlobalError(errCodes[0])
         if(!errors.some(err => err === errCodes[0])) {
           errors = errors.concat(errCodes[0])
-          onAddGlobalError(errCodes[0])
         }
       }
 
@@ -86,12 +94,16 @@ class AgeInput extends React.Component {
         case 1:
           ages.spouseAge = undefined
           ages.kidsAges = undefined
+          onRemoveGlobalError(this.state.errCodes[2])
+          onRemoveGlobalError(this.state.errCodes[4])
           break
         case 2:
           ages.kidsAges = undefined
+          onRemoveGlobalError(this.state.errCodes[4])
           break
         case 4:
           ages.spouseAge = undefined
+          onRemoveGlobalError(this.state.errCodes[2])
           break
       }
 
@@ -114,6 +126,8 @@ class AgeInput extends React.Component {
           }
         }
       }
+      const setError = errors.length < 1 ? true : false
+      onHasErrorChange(setError)
 
       onAgesChange(ages)
       this.setState({
@@ -302,7 +316,8 @@ export default connect(
   state => ({
     ages: state.ageInput.ages,
     coverInput: state.selectCover.coverInput,
-    kidsSelect: state.ageInput.kidsInput
+    kidsSelect: state.ageInput.kidsInput,
+    globalError: state.globalError.error
   }),
   dispatch => ({
     onAgesChange: (ages) => dispatch(agesChange(ages)),
