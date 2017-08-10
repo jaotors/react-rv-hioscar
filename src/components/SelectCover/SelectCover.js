@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { selectCoverChange } from './action'
+import { selectCoverChange, asyncVisibleChange } from './action'
 import './SelectCover.css'
 
 class SelectCover extends React.Component {
@@ -53,12 +53,17 @@ class SelectCover extends React.Component {
 }
 
 SelectCover.propTypes = {
-  onSelectCoverChange: PropTypes.func
+  selectCover: PropTypes.object,
+  onSelectCoverChange: PropTypes.func,
+  onAsyncVisibleChange: PropTypes.func
 }
 
 export default connect(
-  state => ({ coverInput: state.selectCover.coverInput }),
+  state => ({
+    selectCover: state.selectCover
+  }),
   dispatch => ({
-    onSelectCoverChange: (value) => dispatch(selectCoverChange(value))
+    onSelectCoverChange: (value) => dispatch(selectCoverChange(value)),
+    onAsyncVisibleChange: (value) => dispatch(asyncVisibleChange(value))
   })
 )(SelectCover)

@@ -5,7 +5,7 @@ import Input from '../Input/Input'
 import SpouseAge from '../SpouseAge/SpouseAge'
 import KidsAge from '../KidsAge/KidsAge'
 import Errors from '../Errors/Errors'
-import { agesChange, hasErrorChange } from './action'
+import { agesChange, hasErrorChange, asyncVisibleChange } from './action'
 import { addGlobalErr, removeGlobalErr } from '../../redux/modules/globalError'
 
 import './AgeInput.css'
@@ -126,8 +126,6 @@ class AgeInput extends React.Component {
           }
         }
       }
-      const setError = errors.length < 1 ? true : false
-      onHasErrorChange(setError)
 
       onAgesChange(ages)
       this.setState({
@@ -140,7 +138,7 @@ class AgeInput extends React.Component {
   kidsAgeChange(e) {
     const value = parseInt(e.target.value)
     let kidsAges = this.state.kidsAges
-    const {onAgesChange, onAddGlobalError, ages} = <this className="props"></this>
+    const {onAgesChange, onRemoveGlobalError, onAddGlobalError, ages} = this.props
     let errors = this.state.errors
 
     if(kidsAges.length < 1) {
@@ -253,8 +251,8 @@ class AgeInput extends React.Component {
       }
     }
 
-    const setError = errors.length < 1 ? true : false
-    onHasErrorChange(setError)
+    if(errors.length < 1) onHasErrorChange()
+
     this.setState({
       errors,
       kidsAges
@@ -274,7 +272,7 @@ class AgeInput extends React.Component {
   }
 
   render() {
-    const {coverInput, kidsSelect} = this.props
+    const {coverInput, kidsSelect, visible} = this.props
     let kidsInputArr = []
     if(kidsSelect != 0) {
       for(let i = 1; i <= kidsSelect; i++) {
@@ -310,6 +308,7 @@ AgeInput.propTypes = {
   onHasErrorChange: PropTypes.func,
   onAddGlobalError: PropTypes.func,
   onRemoveGlobalError: PropTypes.func,
+  onAsyncVisibleChange: PropTypes.func,
 }
 
 export default connect(
@@ -317,7 +316,7 @@ export default connect(
     ages: state.ageInput.ages,
     coverInput: state.selectCover.coverInput,
     kidsSelect: state.ageInput.kidsInput,
-    globalError: state.globalError.error
+    globalError: state.globalError.error,
   }),
   dispatch => ({
     onAgesChange: (ages) => dispatch(agesChange(ages)),

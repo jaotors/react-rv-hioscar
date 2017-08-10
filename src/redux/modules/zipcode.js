@@ -1,6 +1,6 @@
 const initialState = {
   zipcode: '',
-  hasError: true
+  hasError: true,
 }
 
 const zipCodeReducer = (state=initialState, action) => {

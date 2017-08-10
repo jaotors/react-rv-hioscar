@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
-import { zipCodeChange, hasErrorChange } from './action'
+import { zipCodeChange, hasErrorChange, asyncVisibleChange } from './action'
 import { addGlobalErr, removeGlobalErr } from '../../redux/modules/globalError'
 import './ZipCode.css'
 
@@ -69,7 +69,7 @@ class ZipCode extends React.Component {
       this.setState({
         visible: true
       })
-    }, 500)
+    })
   }
 
   render() {
@@ -88,7 +88,8 @@ ZipCode.propTypes = {
   onZipCodeChange: PropTypes.func,
   onHasErrorChange: PropTypes.func,
   onAddGlobalError: PropTypes.func,
-  onRemoveGlobalError: PropTypes.func
+  onRemoveGlobalError: PropTypes.func,
+  onAsyncVisibleChange: PropTypes.func
 }
 
 export default connect(
@@ -97,6 +98,6 @@ export default connect(
     onZipCodeChange: (zipcode) => dispatch(zipCodeChange(zipcode)),
     onHasErrorChange: () => dispatch(hasErrorChange()),
     onAddGlobalError: (error) => dispatch(addGlobalErr(error)),
-    onRemoveGlobalError: (error) => dispatch(removeGlobalErr(error))
+    onRemoveGlobalError: (error) => dispatch(removeGlobalErr(error)),
   })
 )(ZipCode)

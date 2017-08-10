@@ -31,7 +31,7 @@ class Income extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       this.setState({
-        visible: 500
+        visible: true
       })
     }, 500)
   }
@@ -127,7 +127,7 @@ export default connect(
   state => ({
     checkComponent: state.component.checkComponent,
     income: state.income,
-    globalError: state.globalError.error
+    globalError: state.globalError.error,
   }),
   dispatch => ({
     onIncomeChange: (value) => dispatch(income(value)),
@@ -135,6 +135,6 @@ export default connect(
     onIncomePassChange: (value) => dispatch(incomePass(value)),
     onAddGlobalError: (error) => dispatch(addGlobalErr(error)),
     onRemoveGlobalError: (error) => dispatch(removeGlobalErr(error)),
-    onChangeCheck: (value) => dispatch(changeCheck(value))
+    onChangeCheck: (value) => dispatch(changeCheck(value)),
   })
 )(Income)

@@ -1,7 +1,7 @@
 const initialState = {
   income: '',
   selectIncomePass: false,
-  incomePass: false
+  incomePass: false,
 }
 
 const incomeReducer = (state=initialState, action) => {
