@@ -1,0 +1,8 @@
+{
+  "name": "react-rv-hioscar-backend",
+  "version": "1.0.0",
+  "description": "backend of the rv-hioscar",
+  "main": "index.js",
+  "author": "Joshua B. Turingan",
+  "license": "MIT"
+}
