@@ -55,7 +55,6 @@ class SelectCover extends React.Component {
 SelectCover.propTypes = {
   selectCover: PropTypes.object,
   onSelectCoverChange: PropTypes.func,
-  onAsyncVisibleChange: PropTypes.func
 }
 
 export default connect(
@@ -64,6 +63,5 @@ export default connect(
   }),
   dispatch => ({
     onSelectCoverChange: (value) => dispatch(selectCoverChange(value)),
-    onAsyncVisibleChange: (value) => dispatch(asyncVisibleChange(value))
   })
 )(SelectCover)

@@ -94,16 +94,16 @@ class AgeInput extends React.Component {
         case 1:
           ages.spouseAge = undefined
           ages.kidsAges = undefined
-          onRemoveGlobalError(this.state.errCodes[2])
-          onRemoveGlobalError(this.state.errCodes[4])
+          onRemoveGlobalError(errCodes[2])
+          onRemoveGlobalError(errCodes[4])
           break
         case 2:
           ages.kidsAges = undefined
-          onRemoveGlobalError(this.state.errCodes[4])
+          onRemoveGlobalError(errCodes[4])
           break
         case 4:
           ages.spouseAge = undefined
-          onRemoveGlobalError(this.state.errCodes[2])
+          onRemoveGlobalError(errCodes[2])
           break
       }
 

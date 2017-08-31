@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import CheckInput from '../CheckInput/CheckInput'
 import Button from '../Button/Button'
-import { checkChange, asyncDoneChange } from './action'
+import { checkChange, asyncDoneChange, setPlan } from './action'
 import { changeWaiting } from '../../redux/modules/component'
 import './CheckList.css'
 
@@ -53,6 +53,7 @@ class CheckList extends React.Component {
 
   handleChange(e) {
     const {id, checked} = e.target
+    const { onCheckChange, onSetPlanChange } = this.props
     let checkedPlan = this.state.checkedPlan
     let checkId = id.substr(id.length-1)
     checkedPlan[checkId-1] = checked ? true : false
@@ -62,7 +63,8 @@ class CheckList extends React.Component {
     })
 
     const checkVal = this.state.checkedPlan.some(check => check === true)
-    this.props.onCheckChange(checkVal)
+    onCheckChange(checkVal)
+    onSetPlanChange(id, checked)
   }
 
   handleClick() {
@@ -72,7 +74,7 @@ class CheckList extends React.Component {
     } = this.props
 
     onChangeWaiting(true)
-    onAsyncDoneChange(3)
+    onAsyncDoneChange(this.props.selectCover, 3)
   }
 
   render() {
@@ -114,9 +116,13 @@ CheckList.propTypes = {
 }
 
 export default connect(
-  state => ({ checkPlan: state.checkplan.checkPlan }),
+  state => ({
+    checkPlan: state.checkplan.checkPlan,
+    selectCover: state.selectCover.coverInput
+  }),
   dispatch => ({
     onCheckChange: (value) => dispatch(checkChange(value)),
+    onSetPlanChange: (id, value) => dispatch(setPlan(id, value)),
     onChangeWaiting: (value) => dispatch(changeWaiting(value)),
     onAsyncDoneChange: (value) => dispatch(asyncDoneChange(value))
   })

@@ -1,15 +1,33 @@
 import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import personRouter from './routes/person'
 
 const app = express()
-const port = 8080
+const port = 5050
+const router = express.Router()
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(cors())
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.json({ message: `Welcome to our api` })
 })
 
-app.listen(port, () => {
-  console.log(`You're now listening to port ${port}`)
+router.get('/', (req, res) => {
+  res.json({
+    message: `test router`
+  })
 })
+
+app.use('/api', router)
+personRouter(app)
+
+app.listen(port, () => {
+  console.log(`you're listening to ${port}`)
+})
+
 
 /*plans?zip_code=10012&income=222&tax_household=1&member_age=21&beneficiary=member&prescriptions=1
 plans?zip_code=10012&income=222&tax_household=3&member_age=21&beneficiary=member-spouse&spouse_age=21&specialist=1&procedure=1

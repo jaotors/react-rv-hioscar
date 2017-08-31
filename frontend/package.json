@@ -13,7 +13,8 @@
   ],
   "scripts": {
     "start": "webpack-dev-server --hot --inline --profile --progress",
-    "build": ""
+    "build": "",
+    "test": "jest"
   },
   "author": "Joshua B. Turingan <turingan.joshua@gmail.com>",
   "license": "MIT",
@@ -36,6 +37,7 @@
     "file-loader": "^0.11.2",
     "happypack": "^4.0.0-beta.1",
     "image-webpack-loader": "^3.3.1",
+    "jest": "^20.0.4",
     "neutrino": "^6.1.1",
     "neutrino-preset-react": "^6.1.1",
     "node-sass": "^4.5.3",
@@ -46,6 +48,8 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "es6-promise": "^4.1.1",
+    "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
