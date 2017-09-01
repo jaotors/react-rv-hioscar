@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { FadeInUp } from 'animate-css-styled-components'
 import PropTypes from 'prop-types'
 import CheckInput from '../CheckInput/CheckInput'
 import Button from '../Button/Button'
@@ -37,18 +38,9 @@ class CheckList extends React.Component {
         },
       ],
       checkedPlan: [false, false, false, false],
-      visible: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        visible: true
-      })
-    }, 500)
   }
 
   handleChange(e) {
@@ -81,29 +73,31 @@ class CheckList extends React.Component {
     const { checkPlan } = this.props
 
     return(
-      <div className={(!this.state.visible) ? 'checklistContainer' : 'checklistContainer active'}>
-        <h2>Let’s find the right plan for you!</h2>
-        <p>Select any that apply. Don’t worry, these won’t affect your premium.</p>
+      <FadeInUp duration="0.5s" delay="0.5s" >
+        <div className="checklistContainer">
+          <h2>Let’s find the right plan for you!</h2>
+          <p>Select any that apply. Don’t worry, these won’t affect your premium.</p>
 
-        <ul>
-          {
-            this.state.checkList.map(check => {
-              return (
-                <li key={check.id}>
-                  <CheckInput
-                    id={check.id}
-                    name="checkPlan"
-                    checkLabel={check.checkLabel}
-                    checkExample={check.checkExample}
-                    handleChange={this.handleChange}
-                  />
-                </li>
-              )
-            })
-          }
-        </ul>
-        <Button handleClick={this.handleClick} text={checkPlan ? 'Get Quote' : 'Skip'} />
-      </div>
+          <ul>
+            {
+              this.state.checkList.map(check => {
+                return (
+                  <li key={check.id}>
+                    <CheckInput
+                      id={check.id}
+                      name="checkPlan"
+                      checkLabel={check.checkLabel}
+                      checkExample={check.checkExample}
+                      handleChange={this.handleChange}
+                    />
+                  </li>
+                )
+              })
+            }
+          </ul>
+          <Button handleClick={this.handleClick} text={checkPlan ? 'Get Quote' : 'Skip'} />
+        </div>
+      </FadeInUp>
     )
   }
 }

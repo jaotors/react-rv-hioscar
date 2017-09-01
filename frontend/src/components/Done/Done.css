@@ -1,13 +1,5 @@
 .doneContainer {
   text-align: center;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: 0.5s;
-}
-
-.doneContainer.active {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .doneContainer p:first-child {

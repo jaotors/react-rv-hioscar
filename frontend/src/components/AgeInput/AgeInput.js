@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { FadeInUp } from 'animate-css-styled-components'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import SpouseAge from '../SpouseAge/SpouseAge'
@@ -8,7 +9,6 @@ import Errors from '../Errors/Errors'
 import { agesChange, hasErrorChange, asyncVisibleChange } from './action'
 import { addGlobalErr, removeGlobalErr } from '../../redux/modules/globalError'
 
-import './AgeInput.css'
 
 class AgeInput extends React.Component {
   constructor() {
@@ -23,7 +23,6 @@ class AgeInput extends React.Component {
         `All ages are requried`
       ],
       kidsAges: [],
-      visible: false
     }
     this.replaceText = this.replaceText.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -59,14 +58,6 @@ class AgeInput extends React.Component {
     this.setState({
       errors
     })
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        visible: true
-      })
-    }, 500)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -282,20 +273,22 @@ class AgeInput extends React.Component {
     }
 
     return (
-      <div className={(!this.state.visible) ? 'ageContainer' : 'ageContainer active'}>
-        <p>
-          I'm <Input id="myAge" handleChange={this.handleChange} /> years old 
-          {(coverInput != 2 && coverInput != 3) ? '' : 
-            <SpouseAge coverInput={coverInput} handleChange={this.handleChange} />}
-          {(coverInput != 3 && coverInput != 4) ? '' : 
-            <KidsAge 
-              kidsInputArr={kidsInputArr}
-              replaceText={this.replaceText}
-              handleChange={this.handleChange}
-              kidsAgeChange={this.kidsAgeChange} />}
-        </p>
-        <Errors errors={this.state.errors} />
-      </div>
+      <FadeInUp duration="0.5s" delay="0.5s" >
+        <div>
+          <p>
+            I'm <Input id="myAge" handleChange={this.handleChange} /> years old 
+            {(coverInput != 2 && coverInput != 3) ? '' : 
+              <SpouseAge coverInput={coverInput} handleChange={this.handleChange} />}
+            {(coverInput != 3 && coverInput != 4) ? '' : 
+              <KidsAge 
+                kidsInputArr={kidsInputArr}
+                replaceText={this.replaceText}
+                handleChange={this.handleChange}
+                kidsAgeChange={this.kidsAgeChange} />}
+          </p>
+          <Errors errors={this.state.errors} />
+        </div>
+      </FadeInUp>
     )
   }
 }

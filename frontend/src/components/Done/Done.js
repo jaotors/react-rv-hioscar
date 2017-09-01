@@ -1,36 +1,22 @@
 import React from 'react'
+import { FadeInUp } from 'animate-css-styled-components'
 import { connect } from 'react-redux'
 import './Done.css'
 
-class Done extends React.Component {
-  constructor() {
-    super(),
-    this.state = {
-      visible: false
-    }
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        visible: true
-      })
-    }, 500)
-  }
-
-  render() {
-    return(
-      <div className={(!this.state.visible) ? 'doneContainer' : 'doneContainer active'}>
+const Done = (props) => {
+  return(
+    <FadeInUp duration="0.5s" delay="0.5s" >
+      <div className="doneContainer">
         {
-          this.props.message.map((msg, index) => {
+          props.message.map((msg, index) => {
             return (
               <p key={index}>{msg}</p>
             )
           })
         }
       </div>
-    )
-  }
+    </FadeInUp>
+  )
 }
 
 export default connect(

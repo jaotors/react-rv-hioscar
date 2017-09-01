@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { FadeInUp } from 'animate-css-styled-components'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
 import { zipCodeChange, hasErrorChange, asyncVisibleChange } from './action'
 import { addGlobalErr, removeGlobalErr } from '../../redux/modules/globalError'
-import './ZipCode.css'
 
 class ZipCode extends React.Component {
   constructor() {
@@ -17,7 +17,6 @@ class ZipCode extends React.Component {
         `There is no zipcode like that in makati`,
         `zipcode must be only 4 digits`
       ],
-      visible: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -64,21 +63,15 @@ class ZipCode extends React.Component {
     })
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        visible: true
-      })
-    })
-  }
-
   render() {
     return (
-      <div className={(!this.state.visible) ? 'zipcodeContainer' : 'zipcodeContainer active'}>
-        <p className="small">Let’s get you a quote — it only takes a few seconds.</p>
-        <p>My zipcode is <Input id="zipcode" handleChange={this.handleChange} /></p>
-        <Errors errors={this.state.errors} />
-      </div>
+      <FadeInUp duration="0.5s" delay="0.5s" >
+        <div>
+          <p className="small">Let’s get you a quote — it only takes a few seconds.</p>
+          <p>My zipcode is <Input id="zipcode" handleChange={this.handleChange} /></p>
+          <Errors errors={this.state.errors} />
+        </div>
+      </FadeInUp>
     )
   }
 }

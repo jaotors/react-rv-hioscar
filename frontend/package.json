@@ -47,6 +47,7 @@
     "webpack-dev-server": "^2.6.1"
   },
   "dependencies": {
+    "animate-css-styled-components": "^0.0.18",
     "babel-polyfill": "^6.23.0",
     "es6-promise": "^4.1.1",
     "isomorphic-fetch": "^2.2.1",

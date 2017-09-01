@@ -1,14 +1,3 @@
-.checklistContainer {
-  opacity: 0;
-  transform: translateY(5px);
-  transition: 0.5s;
-}
-
-.checklistContainer.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .checklistContainer h2 {
   margin: 0 0 10px;
 }

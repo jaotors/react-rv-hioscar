@@ -1,14 +1,3 @@
-.waitingContainer {
-  opacity: 0;
-  transform: translateY(5px);
-  transition: 0.5s;
-}
-
-.waitingContainer.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .waitingContainer h2 {
   font-size: 28px;
   margin: 0 0 30px;

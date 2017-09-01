@@ -1,31 +1,17 @@
 import React from 'react'
+import { FadeInUp } from 'animate-css-styled-components'
 import './Waiting.css'
 
-class Waiting extends React.Component {
-  constructor() {
-    super(),
-    this.state = {
-      visible: false
-    }
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        visible: true
-      })
-    }, 500)
-  }
-
-  render() {
-    return(
-      <div className={(!this.state.visible) ? 'waitingContainer' : 'waitingContainer active'}>
+const Waiting = () => {
+  return(
+    <FadeInUp duration="0.5s" delay="0.5s" >
+      <div className="waitingContainer">
         <p>Thanks</p>
         <h2>We’re putting together your personalized quote.</h2>
         <p className="loader"></p>
       </div>
-    )
-  }
+    </FadeInUp>
+  )
 }
 
 export default Waiting

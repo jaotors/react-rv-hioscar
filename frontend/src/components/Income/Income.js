@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { FadeInUp } from 'animate-css-styled-components'
 import PropTypes from 'prop-types'
 import Input from '../Input/Input'
 import Errors from '../Errors/Errors'
@@ -17,7 +18,6 @@ class Income extends React.Component {
       errCodes: [
         `Valid income value is required to get a quote`
       ],
-      visible: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.selectChange = this.selectChange.bind(this)
@@ -26,14 +26,6 @@ class Income extends React.Component {
 
   componentWillMount() {
     this.props.onSelectIncomePassChange(false)
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        visible: true
-      })
-    }, 500)
   }
 
   selectChange(e) {
@@ -91,22 +83,24 @@ class Income extends React.Component {
     } = this.props
 
     return (
-      <div className={(!this.state.visible) ? 'incomeContainer' : 'incomeContainer active'}>
-        <p>I make P 
-          <Input id="income" handleChange={this.handleChange} /> yearly with 
-          <select defaultValue="0" onChange={this.selectChange}>
-            {
-              count.map(c => {
-                return <option key={c} value={c} disabled={c !== 0 ? false : true }>{c !== 0 ? (c === 8 ? `${c}+` : c) : '' }</option>
-              })
-            }
-          </select>
-          people in my tax household.
-        </p>
-        <Errors errors={this.state.errors}/>
-        {(income.selectIncomePass && income.incomePass && (globalError.length < 1) && (!checkComponent) &&
-          <Button handleClick={this.handleClick} text="Next" />)}
-      </div>
+      <FadeInUp duration="0.5s" delay="0.5s" >
+        <div className="incomeContainer">
+          <p>I make P 
+            <Input id="income" handleChange={this.handleChange} /> yearly with 
+            <select defaultValue="0" onChange={this.selectChange}>
+              {
+                count.map(c => {
+                  return <option key={c} value={c} disabled={c !== 0 ? false : true }>{c !== 0 ? (c === 8 ? `${c}+` : c) : '' }</option>
+                })
+              }
+            </select>
+            people in my tax household.
+          </p>
+          <Errors errors={this.state.errors}/>
+          {(income.selectIncomePass && income.incomePass && (globalError.length < 1) && (!checkComponent) &&
+            <Button handleClick={this.handleClick} text="Next" />)}
+        </div>
+      </FadeInUp>
     )
   }
 }
