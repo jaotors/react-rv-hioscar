@@ -4,10 +4,10 @@ import { getMessage } from './modules/api'
 
 function* sagaChangeDoneComponent(payload) {
   const { caseNum, seconds } = payload
-  
+
   const response = yield call(getMessage, caseNum)
-  yield delay(seconds * 1000)
   yield put({ type: 'GET_MESSAGE', value: response.message })
+  yield delay(seconds * 1000)
   yield put({ type: 'CHANGE_DONE_COMPONENT', value: true })
 }
 

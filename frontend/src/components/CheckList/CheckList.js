@@ -124,6 +124,6 @@ export default connect(
     onCheckChange: (value) => dispatch(checkChange(value)),
     onSetPlanChange: (id, value) => dispatch(setPlan(id, value)),
     onChangeWaiting: (value) => dispatch(changeWaiting(value)),
-    onAsyncDoneChange: (value) => dispatch(asyncDoneChange(value))
+    onAsyncDoneChange: (value, seconds) => dispatch(asyncDoneChange(value, seconds))
   })
 )(CheckList)
