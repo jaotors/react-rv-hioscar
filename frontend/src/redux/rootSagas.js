@@ -12,7 +12,7 @@ function* sagaChangeDoneComponent(payload) {
 }
 
 function* rootSaga() {
-  yield takeEvery('ASYNC_DONE_COMPONENT', sagaChangeDoneComponent)
+  yield takeLatest('ASYNC_DONE_COMPONENT', sagaChangeDoneComponent)
 }
 
 export default rootSaga
